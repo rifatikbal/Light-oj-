@@ -1,0 +1,204 @@
+#include <stdio.h>
+#include <iostream>
+#include <climits>
+#include <map>
+#include <cmath>
+#include <algorithm>
+#include <set>
+#include <stack>
+#include <deque>
+#include <vector>
+#include <stdlib.h>
+#include <string>
+#include <string.h>
+#include <utility>
+#include <queue>
+ 
+using namespace std;
+ 
+#define ll long long
+#define ulli  unsigned ll int
+#define sl(n) scanf("%lld", &n)
+#define sl2(a,b) scanf("%lld%lld", &a,&b)
+#define sl3(a,b,c) scanf("%lld%lld%lld", &a,&b,&c)
+#define si(n) scanf("%d", &n)
+#define si2(a,b) scanf("%d%d", &a,&b)
+#define si3(a,b,c) scanf("%d%d%d", &a,&b,&c)
+#define sf(n) scanf("%lf", &n)
+#define pii pair <int, int>
+#define pll pair <ll, ll>
+#define plp pair <int, pll >
+#define pb push_back
+#define mkpr  make_pair
+#define   ff   first
+#define   ss  second
+#define  srt(V)  sort(V.begin(),V.end());
+#define nl printf("\n");
+#define  PI  2*acos(0.0);
+#define  INFP ((ll)1<<62)
+#define  INFN (0-(ll)1<<62)
+#define  loop(a,b)  for(int g=a;g<=b;g++)
+#define  for1(n)  for(int i=0;i<n;i++)
+#define  for2(n)  for(int j=0;j<n;j++)
+#define  for3(n)  for(int k=0;k<n;k++)
+#define  for4(n)  for(int l=0;l<n;l++)
+#define fr(i,a,b) for(int i=a;i<=b;i++)
+#define  bug1(a)  cout<<a<<endl;
+#define  bug2(a,b)  cout<<a<<" "<<b<<endl;
+#define  bug3(a,b,c)  cout<<a<<" "<<b<<" "<<c<<endl;
+#define  bug4(a,b,c,d)  cout<<a<<" "<<b<<" "<<c<<" "<<d<<endl;
+ 
+#define  tst(n)  for(int cs=1;cs<=n;cs++)
+#define spc <<" "<<
+#define  pys puts("YES");
+#define  pno  puts("NO");
+#define bug puts("bug");
+#define  pmn puts("-1");
+#define zero puts("0");
+#define limit 200006
+#define md 1000000007
+ 
+ 
+ 
+typedef pair<int,int> iPair;
+ 
+bool check(int x,int pos){return  (bool)(x &(1<<pos));}
+int st(int x,int pos){  return x= x |(1<<pos);}
+int  Reset(int x,int pos ){ return x= x &~(1<<pos);}
+ 
+iPair keep[16];
+ 
+int dp[(1<<15)+1][16],c;
+ 
+int solve(int mask,int pos,int cnt)
+{
+ 
+    if(cnt>=c-1)
+    {
+ 
+       int xx= max(abs(keep[0].ff-keep[pos].ff),abs(keep[0].ss-keep[pos].ss));
+       return xx;
+ 
+    }
+      //cout<<mask<<" "<<pos<<" "<<dp[mask][pos]<<endl;
+ 
+    int & ret=dp[mask][pos];
+ 
+    if(ret!=-1)return ret;
+ 
+    int mn=100000000;
+    for(int i=1;i<c;i++)
+    {
+ 
+    if(!check(mask,i-1))
+    {
+ 
+      int p=max(abs(keep[i].ff-keep[pos].ff),abs(keep[i].ss-keep[pos].ss))+solve((mask|(1<<(i-1))),i,cnt+1);
+      mn=min(mn,p);
+    }
+ 
+   
+ 
+    }
+ 
+     return ret=mn;
+ 
+}
+ 
+ 
+ 
+ 
+int main()
+{
+ 
+   /*            
+       freopen("input.txt","r",stdin);
+       freopen("output.txt","w",stdout);*/
+ 
+                int test;
+                cin>>test;
+                tst(test)
+                {
+                  memset(dp,-1,sizeof dp);
+ 
+                  //cout<<dp[1][1]<<endl;
+ 
+                  char A[21][21];
+ 
+                  int n,m,x,y;
+ 
+                  c=1;
+ 
+                  si2(n,m);
+ 
+                  fr(i,0,n-1)scanf("%s",A[i]);
+ 
+ 
+ 
+                  fr(i,0,n-1)
+                  {
+ 
+                    fr(j,0,m-1)
+                    {
+                        if(A[i][j]=='g')
+                        {
+                          keep[c].ff=i;
+                          keep[c].ss=j;
+ 
+ 
+                          c++;
+                        }
+                        if(A[i][j]=='x')keep[0].ff=i,keep[0].ss=j;
+                             
+ 
+                    }
+             
+ 
+                  }
+ 
+                  //cout<<keep[0].ff<<" "<<keep[0].ss<<endl;
+ 
+                  //cout<<c<<endl;
+ 
+ 
+                  int ans=solve(0,0,0);
+ 
+                  printf("Case %d: %d\n",cs,ans);
+ 
+ 
+ 
+                 
+           
+           
+           
+           
+                   
+                }
+       
+ 
+ 
+ 
+ 
+ 
+   
+ 
+ 
+ 
+        /**
+       *    @author     : Ikbal Hossain
+       *    @University  : RUET CSE 15
+       *    @CodeForces : iAmrifat
+       *    @UVA        : rifat_ikbal
+       *    @facebook   : https://www.facebook.com/ikbal.rifat.5
+       */
+ 
+      /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
+      /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
+      /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
+      /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
+ 
+}
+ 
+ 
+ 
+ 
