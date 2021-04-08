@@ -50,207 +50,99 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 2367362131
-
-
 typedef pair<ll,ll> iPair;
- 
- 
- 
-string A;
-ll n,dp[1001][1001];
 
-
-ll hass1[1001],hass1r[1001],pww[1001];
-
-long long   x,y;
- 
- void  extend_Euclid(ll int a,ll int b){
- 
- 
-if(b==0){
- 
-    x=a;y=0;
- 
-    //cout<<x<<" "<<y<<endl;
-    return ;
+ string A;
+ ll n,dp[1001][1001];
+ ll hass1[1001],hass1r[1001],pww[1001];
+ long long   x,y;
+ void  extend_Euclid(ll int a,ll int b)
+ {
+    if(b==0)
+    {
+        x=a;y=0;
+        return ;
+    }
+    extend_Euclid(b,a%b);
+    ll int x1=y;
+    ll int y1=x-(a/b)*y;
+    x=x1;
+    y=y1;
 }
-extend_Euclid(b,a%b);
- 
-//cout<<"ab "<<a<<" "<<b<<endl;
-ll int x1=y;
-ll int y1=x-(a/b)*y;
-x=x1;
- 
- 
-y=y1;
-//cout<<x<<" "<<y<<endl;
- 
- 
-}
-
-
-
-
 bool check(ll x,ll y)
 {
-
-ll p=hass1[y]-hass1[x]+limit;
-
-p%=limit;
-
-p*=pww[x];
-p%=limit;
-
-ll q=hass1r[n-x]-hass1r[n-y]+limit;
-
-q%=limit;
-
-q*=pww[n-y];
-q%=limit;
-
-  return p==q?true:false;
+    ll p=hass1[y]-hass1[x]+limit;
+    p%=limit;
+    p*=pww[x];
+    p%=limit;
+    ll q=hass1r[n-x]-hass1r[n-y]+limit;
+    q%=limit;
+    q*=pww[n-y];
+    q%=limit;
+    return p==q?true:false;
 }
-
-
 
 ll solve(ll prv,ll pos)
 {
-
-
-  //cout<<prv<<" "<<pos<<endl;
-
-        ll & ret=dp[prv][pos];
-
-
-
-          if(pos==n-1)
-          {
-
-
-            return  check(prv,pos+1) ? 1:pos-prv+1;
-
-
-
-          }
-          
-          
-          
-          if(ret!=-1)return ret;
-
-
-
-        ll p=INFP,q=INFP;
-
-
-
-        p=check(prv,pos+1)?1+solve(pos+1,pos+1):INFP;
-        q=solve(prv,pos+1);
-
-
-
-        return ret=min(p,q);
-
-
+    ll & ret=dp[prv][pos];
+    if(pos==n-1)
+    {
+        return  check(prv,pos+1) ? 1:pos-prv+1;
+    }
+    if(ret!=-1)return ret;
+    ll p=INFP,q=INFP;
+    p=check(prv,pos+1)?1+solve(pos+1,pos+1):INFP;
+    q=solve(prv,pos+1);
+    return ret=min(p,q);
 }
 
 
 int main()
-{
- 
-               
-            /*     freopen("input.txt","r",stdin);
-                 freopen("output.txt","w",stdout);*/
-                 ll pw=1;
-                 ll val=1000004497;
- 
-                  pww[0]=1;
- 
- 
- 
-                for(ll i=1;i<1001;i++)
-                {
- 
-                  pw*=val;
-                  pw%=limit;
- 
-                  extend_Euclid(pw,limit);
-                  x+=limit;
- 
-                  x%=limit;
-                  pww[i]=x;
-                }
-
-                //bug1
-
-
-                ll test;
-                cin>>test;
-                tst(test)
-                { 
-                    memset(dp,-1,sizeof dp);
-
-                  string X;
- 
-                  cin>>X;
- 
-                 n=X.size();
- 
- 
-                
-               
- 
-                  pw=1;
-                 val=1000004497;
- 
- 
-                for(ll i=1; i<=n; i++)
-                {
- 
-                    pw*=val;
-                    pw%=limit;
- 
-                    hass1[i]=hass1[i-1]+((X[i-1]-'A'+1)*pw)%limit;
- 
-                    hass1[i]%=limit;
- 
-                }   
- 
-          
- 
- 
-                 pw=1;
-                 val=1000004497;
-                 hass1r[0]=0;
-                for(ll i=1; i<=n; i++)
-                {
- 
-                    pw*=val;
-                    pw%=limit;
- 
-                    hass1r[i]=hass1r[i-1]+((X[n-i]-'A'+1)*pw)%limit;
- 
-                    hass1r[i]%=limit;
- 
-                }
-
-
-               // cout<<(hass1[13]-hass1[8]+limit)%limit<<" "<<(hass1r[n-8]-hass1r[n-13]+limit)%limit<<endl;
-
-
-                ll  ans= solve(0,0);
-
-                printf("Case %d: %lld\n",cs,ans);
-
-
-              }
-       
-
-
-
-    
-
- 
-
+{          
+  /*     freopen("input.txt","r",stdin);
+       freopen("output.txt","w",stdout);*/
+      ll pw=1;
+      ll val=1000004497;
+      pww[0]=1;
+      for(ll i=1;i<1001;i++)
+      {
+        pw*=val;
+        pw%=limit;
+        extend_Euclid(pw,limit);
+        x+=limit;
+        x%=limit;
+        pww[i]=x;
+      }
+      ll test;
+      cin>>test;
+      tst(test)
+      { 
+          memset(dp,-1,sizeof dp);
+          string X;
+          cin>>X;
+          n=X.size();
+          pw=1;
+          val=1000004497;
+          for(ll i=1; i<=n; i++)
+          {
+              pw*=val;
+              pw%=limit;
+              hass1[i]=hass1[i-1]+((X[i-1]-'A'+1)*pw)%limit;
+              hass1[i]%=limit;
+          }   
+          pw=1;
+          val=1000004497;
+          hass1r[0]=0;
+          for(ll i=1; i<=n; i++)
+          {
+              pw*=val;
+              pw%=limit;
+              hass1r[i]=hass1r[i-1]+((X[n-i]-'A'+1)*pw)%limit;
+              hass1r[i]%=limit;
+          }
+          ll  ans= solve(0,0);
+          printf("Case %d: %lld\n",cs,ans);
+      }
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
