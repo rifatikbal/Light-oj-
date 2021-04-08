@@ -50,97 +50,52 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 200006
- 
- 
 typedef pair<ll,ll> iPair;
- 
  
  ll dp[201][21][12],A[201], n,m,d;
  
  ll solve(ll pos,ll md,ll cnt)
  {
- 
     if(cnt==m)
     {
- 
       if(md==0)return 1;
       else return 0;
     }
- 
- 
- 
-      if(pos>n)
-      {
-         
-          return 0;
-         
- 
-      }
- 
- 
-       ll & ret=dp[pos][md][cnt];
- 
-      if(ret!=-1)return ret;
- 
- 
- 
- 
-           ll ppp=abs(A[pos])/d;
- 
-           if(abs(A[pos])%d)ppp++;
- 
-           ppp=d*ppp;
- 
-return ret=solve(pos+1,(A[pos]+md+ppp)%d,cnt+1)+solve(pos+1,md,cnt);
- 
-}
+    if(pos>n)return 0;
+    {
+         ll & ret=dp[pos][md][cnt];
+         if(ret!=-1)return ret;
+
+         ll ppp=abs(A[pos])/d;
+         if(abs(A[pos])%d)ppp++;
+         ppp=d*ppp;
+         return ret=solve(pos+1,(A[pos]+md+ppp)%d,cnt+1)+solve(pos+1,md,cnt); 
+    }
+  }
  
 int main()
 {
- 
                
    /*    freopen("input.txt","r",stdin);
        freopen("output.txt","w",stdout);*/
-         
- 
-                  ll test;
-                  cin>>test;
-                  tst(test)
-                  {
- 
-                    ll q;
- 
-                    sl2(n,q);
- 
-                    for(ll i=1;i<=n;i++)sl(A[i]);
- 
-                   
-                    printf("Case %d:\n",cs);
- 
-                      for(ll i=0;i<q;i++)
-                      {
- 
-                        memset(dp,-1,sizeof dp);
-                         sl2(d,m);
- 
-                         printf("%lld\n",solve(1,0,0));
- 
- 
-                      }
- 
-             
-             
-             
-             
-                     
-                  }
-         
- 
- 
-   
- 
- 
- 
+    ll test;
+    cin>>test;
+    tst(test)
+    {
+      ll q;
+      sl2(n,q);
+      
+      for(ll i=1;i<=n;i++)sl(A[i]);
+      printf("Case %d:\n",cs);
+      
+      for(ll i=0;i<q;i++)
+      {
+         memset(dp,-1,sizeof dp);
+         sl2(d,m)
+         printf("%lld\n",solve(1,0,0));
+      }  
+    }
+        
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
