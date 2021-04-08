@@ -13,9 +13,7 @@
 #include <string.h>
 #include <utility>
 #include <queue>
- 
 using namespace std;
- 
 #define ll long long
 #define ulli  unsigned ll int
 #define sl(n) scanf("%lld", &n)
@@ -51,95 +49,59 @@ using namespace std;
 #define zero puts("0");
 #define md  1000000007
 #define limit 2000006
- 
- 
 typedef pair<ll,ll> iPair;
- 
- 
- ll fact[limit];
- 
- long long   x,y;
- 
-  void  extend_Euclid(ll int a,ll int b){
- 
- 
- if(b==0){
- 
-     x=a;y=0;
- 
-     //cout<<x<<" "<<y<<endl;
-     return ;
- }
- extend_Euclid(b,a%b);
- 
- //cout<<"ab "<<a<<" "<<b<<endl;
- ll int x1=y;
- ll int y1=x-(a/b)*y;
- x=x1;
- 
- 
- y=y1;
- //cout<<x<<" "<<y<<endl;
- 
- 
- }
- 
- 
+
+ll fact[limit];
+long long x,y;
+
+void  extend_Euclid(ll int a,ll int b)
+{
+    if(b==0)
+   {
+       x=a;y=0;
+       return ;
+   }
+   extend_Euclid(b,a%b);
+   ll int x1=y;
+   ll int y1=x-(a/b)*y;
+
+   x=x1;
+   y=y1;
+}
+
 int main()
 {
- /*
-               
-       freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
- 
-       fact[0]=1;
-       for(ll i=1;i<=2000000;i++){
-        fact[i]=(fact[i-1]*(i%md))%md;
-        fact[i]%=md;
-      }
- 
- 
- 
-                ll test;
-                cin>>test;
-                tst(test)
-                {
- 
-                  ll n,k;
- 
-                  sl2(n,k);
- 
-                  ll ans=fact[n+k-1];
- 
-                  //cout<<ans<<endl;
- 
-                 
-                  extend_Euclid(fact[n],md);
- 
-                  x+=md;
-                  x%=md;
-                  ans*=x;
-                  ans%=md;
-                   //cout<<ans<<endl;
- 
-                  extend_Euclid(fact[k-1],md);
-                  x+=md;
-                  x%=md;
-                  ans*=x;
-                  ans%=md;
- 
-                   //cout<<ans<<endl;
- 
-                  printf("Case %d: %lld\n",cs,ans);
-                }
-       
- 
- 
- 
-   
- 
- 
- 
+    /*
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);*/
+    fact[0]=1;
+    for(ll i=1;i<=2000000;i++)
+    {
+      fact[i]=(fact[i-1]*(i%md))%md;
+      fact[i]%=md;
+    }
+    ll test;
+    cin>>test;
+    tst(test)
+    {
+        ll n,k;
+        sl2(n,k);
+
+        ll ans=fact[n+k-1];
+        extend_Euclid(fact[n],md);
+        x+=md;
+        x%=md;
+        ans*=x;
+        ans%=md;
+        extend_Euclid(fact[k-1],md);
+        x+=md;
+        x%=md;
+        ans*=x;
+        ans%=md;
+
+        printf("Case %d: %lld\n",cs,ans);
+    }
+
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
@@ -152,20 +114,5 @@ int main()
       /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
       /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
       /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
- 
 }
- 
- 
-
-VOLUME
-Volume Home
-Problem Set
-Problem Category
-Problem Setters
-Submit Problem
-My Submissions
-Judge Status
-Ranklist
-User Statistics
-Compare User Statistics
  
