@@ -64,180 +64,95 @@ int  Reset(int x,int pos ){ return x= x &~(1<<pos);}
 #define zero puts("0");
 #define limit 200006
 #define md 1000000007
- 
- 
- 
 typedef pair<ll,ll> iPair;
- 
 int A[31],p;
- 
- 
- 
- 
 Vll v1,v2;
- 
 bool flag;
+
 void solve(int pos,int mask)
 {
-     
     if(pos>=p)
     {    
- 
         ll s=0;
- 
         fr(i,1,p)
         {
- 
             if(check(mask,i-1))s+=(ll)A[i];
         }
- 
         if(mask==0)return ;
- 
- 
-        //cout<<s<<endl;
- 
-        if(!flag)
- 
-        v1.pb(s);
+        if(!flag)v1.pb(s);
         else v2.pb(s);
- 
- 
-  return ;
-    }
- 
- 
-       
-       
+        return ;
+     }  
      solve(pos+1,mask|(1<<pos)) ;  
      solve(pos+1,mask) ;   
- 
- 
- 
-   }
- 
- 
- 
- 
+}
+
 int main()
-{
- 
-               
-   /*    freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
- 
-        int test;
-        cin>>test;
-        tst(test)
+{  
+    /*    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);*/
+    int test;
+    cin>>test;
+    tst(test)
+    {
+        v1.clear();
+        v2.clear();
+        int n;
+        ll w;
+        si(n);
+        sl(w);
+
+        for(int i=1;i<=n;i++)
         {
-              v1.clear();
-              v2.clear();
-
-              int n;
-              ll w;
-
-              si(n);
-              sl(w);
- 
-              for(int i=1;i<=n;i++)
-              {
-
-                 si(A[i]);
-
-              }
- 
-              p=n/2;
-
-              int ps=p+1;
-
-              flag=false;
-
-
-              solve(0,0);
-
-         
-              p=n-p;
- 
-            fr(i,1,p)
-            {
-
-
-              A[i]=A[ps];
-
-              ps++;
-            }
-
-            flag=true;
-            solve(0,0);
-
-            srt(v1)
-            srt(v2)
- 
-                 ll ans=0;
-
-
-                 for(int i=0;i<v1.size();i++)
-                 {
-                 
-
-
-                    if(v1[i]<=w)ans++;
-
-
-                  ll p=w-v1[i];
-
-                  
-                   
-
-                 p=(upper_bound(v2.begin(),v2.end(),p)-v2.begin());
-
-              
-
-                  ans+=p;
-                 }
-
-                 for(int i=0;i<v2.size();i++)
-                 {
-          
-                     
-                      if(v2[i]<=w)ans++;
-
-                 
-
-
-                 }
- 
-                       
- 
-                printf("Case %d: %lld\n",cs,ans+1);
-           
-           
-           
-           
-                   
-                }
+           si(A[i]);
+        }
+        
+        p=n/2;
+        int ps=p+1;
+        flag=false;
+        solve(0,0);
+        p=n-p;
        
- 
- 
- 
- 
- 
+       fr(i,1,p)
+       {
+          A[i]=A[ps];
+          ps++;
+       }
+       
+       flag=true;
+       solve(0,0);
+       srt(v1)
+       srt(v2)
+       
+       ll ans=0;
+       for(int i=0;i<v1.size();i++)
+       {
+          if(v1[i]<=w)ans++;
+          ll p=w-v1[i];
+          p=(upper_bound(v2.begin(),v2.end(),p)-v2.begin());
+          ans+=p;
+       }
+       
+       for(int i=0;i<v2.size();i++)
+       {
+            if(v2[i]<=w)ans++;
+       }
+       printf("Case %d: %lld\n",cs,ans+1);  
+    }
    
- 
- 
- 
-        /**
-       *    @author     : Ikbal Hossain
-       *    @University  : RUET CSE 15
-       *    @CodeForces : iAmrifat
-       *    @UVA        : rifat_ikbal
-       *    @facebook   : https://www.facebook.com/ikbal.rifat.5
-       */
- 
-      /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
-      /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
-      /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
-      /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
- 
+    /**
+   *    @author     : Ikbal Hossain
+   *    @University  : RUET CSE 15
+   *    @CodeForces : iAmrifat
+   *    @UVA        : rifat_ikbal
+   *    @facebook   : https://www.facebook.com/ikbal.rifat.5
+   */
+
+  /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
+  /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
+  /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
+  /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
+
 }
  
  
