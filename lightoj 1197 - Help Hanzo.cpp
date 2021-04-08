@@ -13,13 +13,9 @@
 #include <string.h>
 #include <utility>
 #include <queue>
- 
- 
 using namespace std;
- 
 #define ll long long
 #define ulli  unsigned ll int
- 
 #define sl(n) scanf("%lld", &n)
 #define sl2(a,b) scanf("%lld%lld", &a,&b)
 #define sl3(a,b,c) scanf("%lld%lld%lld", &a,&b,&c)
@@ -35,7 +31,6 @@ using namespace std;
 #define   ss  second
 #define  srt(V)  sort(V.begin(),V.end());
 #define nl printf("\n");
- 
 #define  PI  2*acos(0.0);
 #define  INFP 100000000000000000
 #define  INFN (0-(ll)1<<62)
@@ -48,140 +43,83 @@ using namespace std;
 #define spc <<" "<<
 #define  pys puts("YES");
 #define  pno  puts("NO");
- 
 #define bug puts("bug");
 #define bug1 puts("bug1");
- 
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 200006
- 
- 
 typedef pair<ll,ll> iPair;
- 
- 
-ll int prime[6548];
-bool  check[(1<<16)+8];
-ll int   sieve(ll int n){
-ll int z,x=1;
-prime[0]=2;
-check[1]=check[0]=true;
- 
- 
-for(int i=3;i*i<=n;i+=2){
- 
-if(!check[i]){
-prime[x]=i;
-x++;
-    for(int j=i*i;j<=n;j+=i){
- 
-        check[j]=true;
-    }
-}
-z=i;
-}
-for(int j=4;j<=n;j+=2){
-    check[j]=true;
- 
-}
-for(int j=z+1;j<=n;j++){
- 
-    if(!check[j]){
-prime[x]=j;
-x++;
- 
-    }
-}
-return  x;
- 
-}
+ ll int prime[6548];
+ bool  check[(1<<16)+8];
+ ll int   sieve(ll int n)
+ {
+   ll int z,x=1;
+   prime[0]=2;
+   check[1]=check[0]=true;
+    for(int i=3;i*i<=n;i+=2)
+    {
+       if(!check[i]){
+       prime[x]=i;
+       x++;
+           for(int j=i*i;j<=n;j+=i){
+               check[j]=true;
+           }
+       }
+       z=i;
+     }
+     for(int j=4;j<=n;j+=2){
+         check[j]=true;
+     }
+     for(int j=z+1;j<=n;j++){
+         if(!check[j]){
+           prime[x]=j;
+           x++;
+         }
+     }
+     return  x;
+  }
  
 bool visited[100008];
 int main()
 {
-/*
- freopen("input1.txt","r",stdin);
-    freopen("output1.txt","w",stdout);
-*/
+     /*
+      freopen("input1.txt","r",stdin);
+         freopen("output1.txt","w",stdout);
+     */
+     ll x=sieve(1<<16);
+     ll test;
+     cin>>test;
+     tst(test)
+     {
+         memset(visited,false,sizeof visited);
+         ll a,b;
+         sl2(a,b);
+         if(a==1)a++;
+         ll ans=0;
+         for(ll i=0;i<x&&prime[i]<=b;i++)
+         {
+             ll p=(a/prime[i])*prime[i];
+             if(p<a){
+                 p+=prime[i];
+             }
+             if(p<(1<<16)&&!check[p]){
+                 p+=prime[i];
+             }
+             for(ll j=p;j<=b;j+=prime[i])
+             {
+                visited[j-a]=true;
+             }
+         }
 
- 
- 
-ll x=sieve(1<<16);
- 
-//cout<<(1<<16)<<endl; 
- 
-
- //cout<<x<<endl;
-ll test;
- 
-cin>>test;
-
-
- 
-tst(test){
- 
-memset(visited,false,sizeof visited);
-ll a,b;
- 
-sl2(a,b);
- if(a==1)a++;
-
-
-ll ans=0;
-for(ll i=0;i<x&&prime[i]<=b;i++){
- 
-
- 
-ll p=(a/prime[i])*prime[i];
-
-
-
-if(p<a){
-
-    p+=prime[i];
-}
-
-if(p<(1<<16)&&!check[p]){
-
-    p+=prime[i];
-}
-
-
- 
-
-
- 
-for(ll j=p;j<=b;j+=prime[i]){
- 
- 
-//cout<<j<<" ";
-visited[j-a]=true;
- 
- 
-}
-//bug1
- 
- 
- 
-}
- 
-for(ll j=a;j<=b;j++){
- 
-if(!visited[j-a]){
- 
-
- //cout<<j<<" ";
-//  cout<<j<<" ";
- 
-    ans++;
-}
- 
-}
- 
-printf("Case %d: %lld\n",cs,ans);
-}
- 
- 
- 
+     for(ll j=a;j<=b;j++)
+     {
+       if(!visited[j-a])
+       { 
+           ans++;
+       }
+     }
+     printf("Case %d: %lld\n",cs,ans);
+  }
+  
 }
  
