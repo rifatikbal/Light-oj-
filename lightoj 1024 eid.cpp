@@ -48,262 +48,111 @@ using namespace std;
 #define spc <<" "<<
 #define  pys puts("YES");
 #define  pno  puts("NO");
-
 #define bug puts("bug");
 #define bug1 puts("bug1");
-
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 200006
-
-
 typedef pair<ll,ll> iPair;
-
 //this templete is collected from someone else 
-    string multiply( string a, long long b ) {
-        // a contains the biginteger in reversed form
-        int carry = 0;
-        for( int i = 0; i < a.size(); i++ ) {
-            carry += (a[i] - 48) * b;
-            a[i] = ( carry % 10 + 48 );
-            carry /= 10;
-        }
-        while( carry ) {
-            a += ( carry % 10 + 48 );
-            carry /= 10;
-        }
-        return a;
+string multiply( string a, long long b )
+{
+    int carry = 0;
+    for( int i = 0; i < a.size(); i++ ) {
+        carry += (a[i] - 48) * b;
+        a[i] = ( carry % 10 + 48 );
+        carry /= 10;
     }
-
-/*string multiply(string num1, string num2) 
-{ 
-    int len1 = num1.size(); 
-    int len2 = num2.size(); 
-    if (len1 == 0 || len2 == 0) 
-    return "0"; 
-
-    // will keep the result number in vector 
-    // in reverse order 
-    vector<int> result(len1 + len2, 0); 
-
-    // Below two indexes are used to find positions 
-    // in result. 
-    int i_n1 = 0; 
-    int i_n2 = 0; 
-    
-    // Go from right to left in num1 
-    for (int i=len1-1; i>=0; i--) 
-    { 
-        int carry = 0; 
-        int n1 = num1[i] - '0'; 
-
-        // To shift position to left after every 
-        // multiplication of a digit in num2 
-        i_n2 = 0; 
-        
-        // Go from right to left in num2             
-        for (int j=len2-1; j>=0; j--) 
-        { 
-            // Take current digit of second number 
-            int n2 = num2[j] - '0'; 
-
-            // Multiply with current digit of first number 
-            // and add result to previously stored result 
-            // at current position. 
-            int sum = n1*n2 + result[i_n1 + i_n2] + carry; 
-
-            // Carry for next iteration 
-            carry = sum/10; 
-
-            // Store result 
-            result[i_n1 + i_n2] = sum % 10; 
-
-            i_n2++; 
-        } 
-
-        // store carry in next cell 
-        if (carry > 0) 
-            result[i_n1 + i_n2] += carry; 
-
-        // To shift position to left after every 
-        // multiplication of a digit in num1. 
-        i_n1++; 
-    } 
-
-    // ignore '0's from the right 
-    int i = result.size() - 1; 
-    while (i>=0 && result[i] == 0) 
-    i--; 
-
-    // If all were '0's - means either both or 
-    // one of num1 or num2 were '0' 
-    if (i == -1) 
-    return "0"; 
-
-    // generate the result string 
-    string s = ""; 
-    
-    while (i >= 0) 
-        s += std::to_string(result[i--]); 
-
-    return s; 
-} 
-*/
-
-
+    while( carry ) {
+        a += ( carry % 10 + 48 );
+        carry /= 10;
+    }
+    return a;
+}
 
 ll int prime[10000];
 bool  check[10007];
-ll int   sieve(ll int n){
-ll int z,x=1;
-prime[0]=2;
-check[1]=check[0]=true;
-
-
-for(int i=3;i*i<=n;i+=2){
-
-if(!check[i]){
-prime[x]=i;
-x++;
-    for(int j=i*i;j<=n;j+=i){
-
+ll int   sieve(ll int n)
+{
+    ll int z,x=1;
+    prime[0]=2;
+    check[1]=check[0]=true;
+    for(int i=3;i*i<=n;i+=2)
+    {
+        if(!check[i])
+        {
+            prime[x]=i;
+            x++;
+            for(int j=i*i;j<=n;j+=i)
+            {
+                check[j]=true;
+            }
+        }
+        z=i;
+    }
+    for(int j=4;j<=n;j+=2)
+    {
         check[j]=true;
     }
-}
-z=i;
-}
-for(int j=4;j<=n;j+=2){
-    check[j]=true;
-
-}
-for(int j=z+1;j<=n;j++){
-
-    if(!check[j]){
-prime[x]=j;
-x++;
-
+    for(int j=z+1;j<=n;j++)
+    {
+        if(!check[j])
+        {
+            prime[x]=j;
+            x++;
+        }
     }
+    return  x;
 }
-return  x;
-
-}
-
-
 
 int main()
 {
  /*freopen("input1.txt","r",stdin);
     freopen("output1.txt","w",stdout);*/
+    ll x=sieve(10000);
+    ll test;
+    cin>>test;
+    tst(test)
+    {
+        int A[1005];
+        int cnt[10002];
+        memset(cnt,0,sizeof(cnt));
+        
+        ll n;
+        sl(n);
+        for(ll i=0;i<n;i++)sl(A[i]);
 
+        for1(n)
+        {
+            int s=A[i];
+            for(ll j=0;j<25&&prime[j]*prime[j]<=A[i];j++)
+            {
+                int  c=1;
+                while(s%prime[j]==0)
+                {
+                    s/=prime[j];
+                    c*=prime[j];
+                }
+                if(c==1)continue;
+                cnt[prime[j]]=max(cnt[prime[j]],c);
+            }
+            if(s!=1)
+            {
+                cnt[s]=max(cnt[s],s);
+            }
+        }
 
-/*
-string A,B;
+        string ans="1";
+        for(ll i=0;i<x;i++)
+        {
+            if(cnt[prime[i]]==0)continue;
+            ans=multiply(ans,cnt[prime[i]]);
+        }
 
-cin>>A>>B;
+        char Ans[2000007];
+        for(ll i=ans.size()-1;i>=0;i--)Ans[ans.size()-i-1]=ans[i];
 
-cout<<multiply(A,B)<<endl;*/
-
-
-
-
-
-ll x=sieve(10000);
-
-//cout<<x<<endl;
-ll test;
-
-
-//bug1
-cin>>test;
-
-tst(test){
-int A[1005];
-int cnt[10002];
-memset(cnt,0,sizeof(cnt));
-ll n;
-
-sl(n);
-
-for(ll i=0;i<n;i++){
-
-    sl(A[i]);
-}
-
-for1(n){
-
-int  s=A[i];
-
-
-//bug1
-for(ll j=0;j<25&&prime[j]*prime[j]<=A[i];j++){
-    //bug1/
-
-int  c=1;
-
-
-while(s%prime[j]==0){
-   // bug1
-
-
-    s/=prime[j];
-    //c++;
-
-    c*=prime[j];
-}
-if(c==1)continue;
-
-cnt[prime[j]]=max(cnt[prime[j]],c);
-
-//=max(cnt[prime[j]],c);
-
-
-
-}
-
-
-if(s!=1){
-
-    cnt[s]=max(cnt[s],s);
-}
-
-
-}
-
-
-string ans="1";
-for(ll i=0;i<x;i++){
-    if(cnt[prime[i]]==0)continue;
-
-
-//string B=std::to_string((int)cnt[prime[i]]);
-
-
-
-
-
-ans=multiply(ans,cnt[prime[i]]);
-
-}
-
-
-char Ans[2000007];
-for(ll i=ans.size()-1;i>=0;i--){
-
-Ans[ans.size()-i-1]=ans[i];
-
-}
-Ans[ans.size()]='\0';
-//ans+='\0';
-
-printf("Case %d: %s\n",cs,Ans);
-
-
-
-
-
-
-
-
-}
-
+        Ans[ans.size()]='\0';
+        printf("Case %d: %s\n",cs,Ans);
+    }
 }
