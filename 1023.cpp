@@ -50,111 +50,54 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 200006
- 
- 
 typedef pair<ll,ll> iPair;
-     
-     ll n,k;
-     stack<ll>st;
- 
-     bool check(ll x,ll pos)
-     {
- 
- 
- 
-      return (x&(1LL<<pos));
-     }
- 
- 
- 
-     void  solve(ll pos,ll mask)
-     {
- 
-            if(k==0)return ;
-          if(pos>=n)
-          {
- 
-            vector<ll>v;
- 
-            while(!st.empty())
-            {
- 
-              //cout<<st.top()+'a';
- 
-              //printf("%c",st.top()+'a');
- 
- 
-              v.pb(st.top());
- 
-              st.pop();
-            }
- 
-           
- 
-            for(ll i=n-1;i>=0;i--)printf("%c", v[i]+'A'),st.push(v[i]);
- 
- 
-              nl
- 
-          k--;
-          return ;
-        }
- 
- 
- 
-        for(ll i=0;i<n;i++)
+
+ ll n,k;
+ stack<ll>st;
+ bool check(ll x,ll pos)
+ {
+    return (x&(1LL<<pos));
+ }
+ void  solve(ll pos,ll mask)
+ {
+      if(k==0)return ;
+      if(pos>=n)
+      {
+        vector<ll>v;
+        while(!st.empty())
         {
- 
-          if(!check(mask,i))
-          {
-             
- 
-             st.push(i);
-             solve(pos+1,mask|(1LL<<i));
- 
-             st.pop();
-          }
+          v.pb(st.top());
+          st.pop();
         }
- 
- 
- 
- 
-     }
- 
- 
+        for(ll i=n-1;i>=0;i--)printf("%c", v[i]+'A'),st.push(v[i]);
+         nl
+        k--;
+        return ;
+    }
+    for(ll i=0;i<n;i++)
+    {
+      if(!check(mask,i))
+      {
+         st.push(i);
+         solve(pos+1,mask|(1LL<<i));
+
+         st.pop();
+      }
+    }
+ }
 int main()
 {
- 
-               
      /*  freopen("input.txt","r",stdin);
        freopen("output.txt","w",stdout);
 */
- 
- 
-                ll test;
-                cin>>test;
-                tst(test)
-                {
-           
-                    sl2(n,k);  
- 
-                    printf("Case %d:\n",cs );  
- 
-                    solve(0,0);
- 
-                 
-           
-           
-                   
-                }
-       
- 
- 
- 
-   
- 
- 
- 
+      ll test;
+      cin>>test;
+      tst(test)
+      {
+          sl2(n,k);  
+          printf("Case %d:\n",cs );  
+          solve(0,0);     
+      }
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
