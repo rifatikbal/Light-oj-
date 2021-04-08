@@ -62,128 +62,61 @@ int  Reset(int x,int pos ){ return x= x &~(1<<pos);}
 #define zero puts("0");
 #define limit 200006
 #define md 1000000007
- 
- 
- 
- 
 typedef pair<ll,ll> iPair;
- 
 int pmx[501][501][10],A[501][501],x,y,s,n;
- 
- 
 void solve()
 {
- 
- 
- 
    fr(i,1,n)
    {
-    fr(j,1,n)pmx[i][j][0]=A[i][j];
+     fr(j,1,n)pmx[i][j][0]=A[i][j];
    }
- 
- 
    fr(i,1,n)
    {
- 
     int p=log2(n)+1;
-    //cout<<p<<endl;
- 
- 
     fr(j,1,p)
     {
- 
- 
         fr(k,1,n)
         {
- 
           pmx[i][k][j]=max(pmx[i][k][j-1],pmx[i][k+(1<<(j-1))][j-1]);
- 
- 
         }
-    }
+     }
    }
- 
- 
- 
 }
- 
- 
- 
 int query()
 {
- 
     int mx=0;
     for(int i=x;i<=x+s-1;i++)
     {
-     
-     int r=log2(s);
-     int pos=y+s-1;
-       
-     int p=max(pmx[i][y][r],pmx[i][pos-(1<<r)+1][r]);
- 
-     mx=max(mx,p);
- 
- 
+       int r=log2(s);
+       int pos=y+s-1;
+       int p=max(pmx[i][y][r],pmx[i][pos-(1<<r)+1][r]);
+       mx=max(mx,p);
     }
- 
     return mx;
-}
- 
- 
- 
- 
+} 
 int main()
-{
- 
-               
+{        
   /*     freopen("input.txt","r",stdin);
        freopen("output.txt","w",stdout);*/
- 
-                int test;
-                cin>>test;
-                tst(test)
-                {
-                    int q;
- 
-                    si2(n,q);
- 
-                    fr(i,1,n)
-                    {
-                        fr(j,1,n)
-                        si(A[i][j]);
-                    }
- 
-                    solve();
- 
-                    printf("Case %d:\n",cs);
- 
-               
-                    fr(i,1,q)
-                    {
-                        si3(x,y,s);
- 
-                        printf("%d\n",query());
-                       
-                    }
-                   
- 
-                 
-           
-           
-           
-           
-                   
-                }
-       
- 
- 
- 
- 
- 
-   
- 
- 
- 
+      int test;
+      cin>>test;
+      tst(test)
+      {
+          int q;
+          si2(n,q);
+          fr(i,1,n)
+          {
+              fr(j,1,n)
+              si(A[i][j]);
+          }
+          solve();
+          printf("Case %d:\n",cs);
+          fr(i,1,q)
+          {
+              si3(x,y,s);
+              printf("%d\n",query());                   
+          } 
+      }
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
