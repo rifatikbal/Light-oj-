@@ -101,7 +101,6 @@ int main()
        cin>>num;
         for(ll i=0;i<num.size();i++)
         {
-
           if(num[i]>='0'&&num[i]<='9')dig[i]=num[i]-'0';
           else dig[i]=num[i]-'A'+10;
         }
