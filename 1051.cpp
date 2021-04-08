@@ -50,138 +50,57 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 200006
- 
- 
-typedef pair<ll,ll> iPair;
- 
+ typedef pair<ll,ll> iPair;
  
  string A;
- 
  ll n,dp[52][5][5];
- 
- 
  bool check(char C)
  {
- 
- 
- 
-if(C=='A'||C=='E'||C=='I'||C=='O'||C=='U')return true;
- 
-return false;
- 
+    if(C=='A'||C=='E'||C=='I'||C=='O'||C=='U')return true;
+    return false;
  }
- 
- 
  ll solve(ll pos,ll v,ll c)
  {
- 
- 
- 
-    //cout<<pos<<" "<<c<<" "<<v<<endl;
- 
- 
- 
-  if(pos==n)
-  {
- 
-    return 2;
- 
- 
-  }
- 
-  ll & ret=dp[pos][c][v];
- 
-  if(ret!=-1)return ret;
- 
- 
-ll p=0,q=0;
-  if(A[pos]=='?')
-  {
- 
-         p=(c>=4) ? 1: solve(pos+1,0,c+1);
- 
-         //bug1
- 
-         q=(v>=2) ? 1:solve(pos+1,v+1,0);
- 
-         //cout<<p<<" "<<q<<endl;
- 
-         return ret=p|q;
-  }
- 
-  else
-  {
- 
-    //bug
- 
- 
-    if(check(A[pos])){
- 
- 
- 
-  return ret=(v>=2) ? 1 :solve(pos+1,v+1,0);
- 
- 
-     }
-     else
-     {
- 
- 
-  return ret=(c>=4) ? 1:solve(pos+1,0,c+1);
-     }
- 
-  }
- 
- 
- 
- 
+    if(pos==n)return 2;
+    ll & ret=dp[pos][c][v];
+    if(ret!=-1)return ret;
+    ll p=0,q=0;
+    if(A[pos]=='?')
+    {
+           p=(c>=4) ? 1: solve(pos+1,0,c+1);
+           q=(v>=2) ? 1:solve(pos+1,v+1,0);
+           return ret=p|q;
+    }
+    else
+    {
+         if(check(A[pos]))
+         {
+              return ret=(v>=2) ? 1 :solve(pos+1,v+1,0);
+         }
+         else
+         {
+            return ret=(c>=4) ? 1:solve(pos+1,0,c+1);
+         }
+    }
  }
  
 int main()
-{
- 
-               
+{          
     /*   freopen("input.txt","r",stdin);
        freopen("output.txt","w",stdout);*/
-                ll test;
-                cin>>test;
-                tst(test)
-                {
-                       memset(dp,-1,sizeof dp);
- 
-                  cin>>A;
- 
-                  n=A.size();
- 
- 
-                  ll ans=solve(0,0,0);
- 
-                  printf("Case %d: ",cs);
- 
-                 // cout<<ans<<endl;
- 
-                  if(ans==2)printf("GOOD\n");
- 
-                  else if (ans==1)printf("BAD\n");
- 
-                  else printf("MIXED\n");
- 
-                 
- 
-           
-           
-           
-           
-                   
-                }
-       
- 
- 
- 
-   
- 
- 
- 
+    ll test;
+    cin>>test;
+    tst(test)
+    {
+          memset(dp,-1,sizeof dp);
+          cin>>A;
+          n=A.size();
+          ll ans=solve(0,0,0);
+          printf("Case %d: ",cs);
+          if(ans==2)printf("GOOD\n");
+          else if (ans==1)printf("BAD\n");
+          else printf("MIXED\n");
+    }
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
@@ -196,5 +115,4 @@ int main()
       /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
  
 }
- 
  
