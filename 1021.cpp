@@ -55,162 +55,67 @@ using namespace std;
 typedef pair<ll,ll> iPair;
  
  
-ll sz,dp[(1LL<<17)+1][21],pw[18],dig[18];
- ll base,k,pos=0;
+ll sz,dp[(1LL<<17)+1][21],pw[18],dig[18],base,k,pos=0;
  
 bool check(ll nm,ll pos)
 {
- 
- 
   return (nm&(1LL<<pos));
 }
  
 string  num;
- 
- 
- 
- 
 ll solve(ll mask,ll sm)
 {
- 
- 
- 
-          if((mask==((1LL<<num.size())-1)))
-          {
- 
-            if(sm==0)return 1;
-            else return 0;
- 
-          }
- 
- 
-          ll & ret=dp[mask][sm];
-          if(ret!=-1)return ret;
- 
- 
- 
-          ll c=0;
-        for(ll i=0;i<num.size();i++)
+      if((mask==((1LL<<num.size())-1)))
+      {
+        if(sm==0)return 1;
+        else return 0;
+      }
+      ll & ret=dp[mask][sm];
+      if(ret!=-1)return ret;
+      ll c=0;
+      for(ll i=0;i<num.size();i++)
+      {
+        if(!check(mask,i))
         {
- 
- 
- 
-          if(!check(mask,i))
-          {
-            pos++;
- 
-           
-           c+=solve((mask|1LL<<i),(sm+(pw[pos]%k)*dig[i])%k);
- 
- 
-           pos--;
-          }
- 
- 
- 
- 
+          pos++;
+         c+=solve((mask|1LL<<i),(sm+(pw[pos]%k)*dig[i])%k);
+         pos--;
         }
- 
-        return ret= c;
- 
+      }
+      return ret=c;
 }
  
  
  
 int main()
 {
- 
 /*              
-       freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
- 
- 
-                ll test;
-                cin>>test;
-                tst(test)
-                {  pos=-1;
- 
-                  memset(dp,-1,sizeof dp);
- 
-                 
- 
- 
-                  cin>>base>>k;
- 
-                  cin>>num;
- 
- 
- 
- 
-                  for(ll i=0;i<num.size();i++)
-                  {
- 
-                    if(num[i]>='0'&&num[i]<='9')dig[i]=num[i]-'0';
-                    else dig[i]=num[i]-'A'+10;
-                   
- 
- 
- 
-                  }
- 
-  /*                for(ll i=0;i<num.size();i++)cout<<dig[i]<<" ";
- 
-                    nl*/
- 
- 
- 
- 
- 
- 
- 
-                  ll p=1;
- 
- 
-                  for(ll i=0;i<17;i++)
-                  {
- 
-                   pw[i]=p;
-                   p*=base;
-                   //p%=k;
- 
- 
- 
-                  }
- 
- 
- 
-                  //for(ll i=0;i<17;i++)cout<<pw[i]<<" ";
- 
-                  ll ans=solve(0,0);
- 
- 
- 
-                printf("Case %d: %lld\n",cs,ans);
- 
-                 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-           
-           
-           
-           
-                   
-                }
+   freopen("input.txt","r",stdin);
+   freopen("output.txt","w",stdout);*/
+    ll test;
+    cin>>test;
+    tst(test)
+    {  pos=-1;
+       memset(dp,-1,sizeof dp);
+       cin>>base>>k;
+       cin>>num;
+        for(ll i=0;i<num.size();i++)
+        {
+
+          if(num[i]>='0'&&num[i]<='9')dig[i]=num[i]-'0';
+          else dig[i]=num[i]-'A'+10;
+        }
+
+        ll p=1;
+        for(ll i=0;i<17;i++)
+        {
+         pw[i]=p;
+         p*=base;
+        }
+      ll ans=solve(0,0);
+      printf("Case %d: %lld\n",cs,ans);
+    }
        
- 
- 
- 
-   
- 
- 
- 
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
