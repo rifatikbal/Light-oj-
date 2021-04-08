@@ -80,9 +80,7 @@ ll solve(ll mask,ll sm)
       }
       return ret=c;
 }
- 
- 
- 
+
 int main()
 {
 /*              
