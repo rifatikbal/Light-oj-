@@ -58,178 +58,93 @@ using namespace std;
 #define zero puts("0");
 #define limit 200006
 #define md 1000000007
- 
- 
 typedef pair<ll,ll> iPair;
- 
+
  int A[100001],tree[400001];
- 
  void create(int node,int b,int e)
- 
  {
- 
- 
     if(b==e)
     {
- 
         tree[node]=1;
- 
         return ;
     }
- 
+
    int m=(b+e)/2;
- 
    int l=2*node;
    int r=l+1;
- 
- 
-   create(l,b,m);
-   create(r,m+1,e);
- 
- 
+  
+  create(l,b,m);
+  create(r,m+1,e);
+
   tree[node]=tree[l]+tree[r];
- 
- }
- 
- 
- 
- 
+}
  
  void update(int node,int b,int e,int ind)
  {
- 
- 
- 
- 
     if(b==e)
     {
- 
         tree[node]=0;
- 
         return ;
     }
- 
- 
- 
     int m=(b+e)/2;
- 
- 
     int l=2*node;
     int r=l+1;
- 
- 
-  if(tree[l]<ind)
-  {
- 
-    update(r,m+1,e,ind-tree[l]);
-  }
- 
-  else
-  {
- 
-    update(l,b,m,ind);
- 
-  }
- 
-  tree[node]=tree[l]+tree[r];
- 
- }
- 
+    if(tree[l]<ind)update(r,m+1,e,ind-tree[l]);
+    else update(l,b,m,ind);
+    tree[node]=tree[l]+tree[r]; 
+}
+
  int query(int node,int b,int e)
  {
- 
- 
    if(b==e)return b;
- 
- 
+
    int m=(b+e)/2;
- 
- 
    int l=2*node;
    int r=l+1;
  
-   if(tree[l])
-    {
-        return query(l,b,m);
-    }
-   else
-    {
-        return query(r,m+1,e);
-    }
- 
- }
- 
- 
+   if(tree[l])return query(l,b,m);
+   else return query(r,m+1,e);
+}
+
 int main()
-{
- 
-               
-      /* freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
- 
- 
- 
-                ll test;
-                cin>>test;
-                tst(test)
-                {
-                     memset(tree,0,sizeof tree);
- 
-                    int n;
- 
-                    si(n);
- 
-                    fr1(n)
-                    {
- 
-                    si(A[i]);
- 
-                    }
- 
-                    create(1,1,n);
- 
-                    for(int i=n;i>1;i--)
-                    {
- 
-                       int p=i-A[i];
- 
-                       update(1,1,n,p);
- 
-                     
- 
- 
-                    }
-           
- 
- 
- 
-                    printf("Case %d: %d\n",cs,query(1,1,n));
-           
-           
-           
-                   
-                }
-       
- 
- 
- 
-   
- 
- 
- 
-        /**
-       *    @author     : Ikbal Hossain
-       *    @University  : RUET CSE 15
-       *    @CodeForces : iAmrifat
-       *    @UVA        : rifat_ikbal
-       *    @facebook   : https://www.facebook.com/ikbal.rifat.5
-       */
- 
-      /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
-      /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
-      /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
-      /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
- 
+{        
+    /* freopen("input.txt","r",stdin);
+     freopen("output.txt","w",stdout);*/
+    ll test;
+    cin>>test;
+    tst(test)
+    {
+        memset(tree,0,sizeof tree);
+        int n;
+        si(n);
+        fr1(n)
+        {
+          si(A[i]);
+        }
+
+        create(1,1,n);
+
+        for(int i=n;i>1;i--)
+        {
+           int p=i-A[i];
+           update(1,1,n,p);
+        }
+        
+        printf("Case %d: %d\n",cs,query(1,1,n));  
+    }
+      /**
+     *    @author     : Ikbal Hossain
+     *    @University  : RUET CSE 15
+     *    @CodeForces : iAmrifat
+     *    @UVA        : rifat_ikbal
+     *    @facebook   : https://www.facebook.com/ikbal.rifat.5
+     */
+
+    /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
+    /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
+    /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
+    /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
+
 }
  
  
