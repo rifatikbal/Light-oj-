@@ -50,108 +50,52 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 200006
- 
- 
 typedef pair<ll,ll> iPair;
  
  ll n,x,dp[26][151];
- 
  ll solve(ll pos,ll sm)
  {
-  if(pos>n)
-  {
- 
-    if(sm>=x)return 1;
-    else return 0;
- 
-  }
- 
-  //if(sm>x)return 0;
- 
- 
- 
- ll & ret=dp[pos][sm];
- 
- if(ret !=-1)return ret;
- 
-ll c=0;
-  for(ll i=1;i<=6;i++)
-  {
- 
- c+=solve(pos+1,sm+i);
- 
-  }
- 
-   return ret=dp[pos][sm]=c;
- 
- 
- 
+    if(pos>n)
+    {
+      if(sm>=x)return 1;
+      else return 0;
+    }
+    ll & ret=dp[pos][sm];
+    if(ret !=-1)return ret;
+    ll c=0;
+    for(ll i=1;i<=6;i++)
+    {
+      c+=solve(pos+1,sm+i);
+    }
+    return ret=dp[pos][sm]=c;
  }
- 
- 
- 
+
 int main()
-{
- 
-               
-       /*freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);
-*/
- 
- 
-                ll test;
-                cin>>test;
-                tst(test)
-                {
- 
-                  memset(dp,-1,sizeof dp);
- 
- 
-                 
-                  cin>>n>>x;
- 
-                  ll ans=solve(1,0);
- 
-                  ll p=1;
- 
-                  while(n)p*=6,n--;
- 
-                  ll gc=__gcd(ans,p);
-                  ans/=gc;
-                  p/=gc;
-                  //cout<<ans<<endl;
- 
-                  printf("Case %d: ",cs);
- 
-                  if(p==1)printf("%lld\n",ans);
-                  else {
-             
- 
-                      printf("%lld/%lld\n",ans,p);
-                  }
- 
- 
- 
-           
-           
-           
-           
-                   
-                }
+{     
+     /*freopen("input.txt","r",stdin);
+     freopen("output.txt","w",stdout);
+  */
+    ll test;
+    cin>>test;
+    tst(test)
+    {
+      memset(dp,-1,sizeof dp);
+      cin>>n>>x;
+      ll ans=solve(1,0);
+      ll p=1;
+      while(n)p*=6,n--;
+
+      ll gc=__gcd(ans,p);
+      ans/=gc;
+      p/=gc;
+      printf("Case %d: ",cs);
+      if(p==1)printf("%lld\n",ans);
+      else
+      {
+          printf("%lld/%lld\n",ans,p);
+      }   
+    }
        
- 
- 
- 
- 
- 
- 
- 
- 
- 
-   
- 
- 
- 
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
