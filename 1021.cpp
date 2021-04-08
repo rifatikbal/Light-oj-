@@ -50,13 +50,9 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 200006
- 
- 
+
 typedef pair<ll,ll> iPair;
- 
- 
 ll sz,dp[(1LL<<17)+1][21],pw[18],dig[18],base,k,pos=0;
- 
 bool check(ll nm,ll pos)
 {
   return (nm&(1LL<<pos));
