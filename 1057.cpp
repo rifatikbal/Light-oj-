@@ -57,133 +57,66 @@ using namespace std;
 #define zero puts("0");
 #define limit 200006
 #define md 1000000007
- 
- 
- 
 typedef pair<int,int> iPair;
- 
+
 bool check(int x,int pos){return  (bool)(x &(1<<pos));}
 int st(int x,int pos){  return x= x |(1<<pos);}
 int  Reset(int x,int pos ){ return x= x &~(1<<pos);}
- 
 iPair keep[16];
- 
 int dp[(1<<15)+1][16],c;
- 
 int solve(int mask,int pos,int cnt)
 {
- 
     if(cnt>=c-1)
     {
- 
-       int xx= max(abs(keep[0].ff-keep[pos].ff),abs(keep[0].ss-keep[pos].ss));
+       int xx=max(abs(keep[0].ff-keep[pos].ff),abs(keep[0].ss-keep[pos].ss));
        return xx;
- 
     }
-      //cout<<mask<<" "<<pos<<" "<<dp[mask][pos]<<endl;
- 
     int & ret=dp[mask][pos];
- 
     if(ret!=-1)return ret;
- 
     int mn=100000000;
     for(int i=1;i<c;i++)
     {
- 
-    if(!check(mask,i-1))
-    {
- 
-      int p=max(abs(keep[i].ff-keep[pos].ff),abs(keep[i].ss-keep[pos].ss))+solve((mask|(1<<(i-1))),i,cnt+1);
-      mn=min(mn,p);
+      if(!check(mask,i-1))
+      {
+        int p=max(abs(keep[i].ff-keep[pos].ff),abs(keep[i].ss-keep[pos].ss))+solve((mask|(1<<(i-1))),i,cnt+1);
+        mn=min(mn,p);
+      }
     }
- 
-   
- 
-    }
- 
-     return ret=mn;
- 
+    return ret=mn;
 }
- 
- 
- 
- 
+
 int main()
 {
- 
-   /*            
-       freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
- 
-                int test;
-                cin>>test;
-                tst(test)
-                {
-                  memset(dp,-1,sizeof dp);
- 
-                  //cout<<dp[1][1]<<endl;
- 
-                  char A[21][21];
- 
-                  int n,m,x,y;
- 
-                  c=1;
- 
-                  si2(n,m);
- 
-                  fr(i,0,n-1)scanf("%s",A[i]);
- 
- 
- 
-                  fr(i,0,n-1)
-                  {
- 
-                    fr(j,0,m-1)
-                    {
-                        if(A[i][j]=='g')
-                        {
-                          keep[c].ff=i;
-                          keep[c].ss=j;
- 
- 
-                          c++;
-                        }
-                        if(A[i][j]=='x')keep[0].ff=i,keep[0].ss=j;
-                             
- 
-                    }
-             
- 
-                  }
- 
-                  //cout<<keep[0].ff<<" "<<keep[0].ss<<endl;
- 
-                  //cout<<c<<endl;
- 
- 
-                  int ans=solve(0,0,0);
- 
-                  printf("Case %d: %d\n",cs,ans);
- 
- 
- 
-                 
-           
-           
-           
-           
-                   
-                }
+/*            
+   freopen("input.txt","r",stdin);
+   freopen("output.txt","w",stdout);*/
+  int test;
+  cin>>test;
+  tst(test)
+  {
+    memset(dp,-1,sizeof dp);
+    char A[21][21];
+    int n,m,x,y;
+    c=1;
+    si2(n,m);
+    fr(i,0,n-1)scanf("%s",A[i]); 
+    fr(i,0,n-1)
+    {
+        fr(j,0,m-1)
+        {
+            if(A[i][j]=='g')
+            {
+              keep[c].ff=i;
+              keep[c].ss=j;
+              c++;
+            }
+            if(A[i][j]=='x')keep[0].ff=i,keep[0].ss=j;
+        }
+      }
+      int ans=solve(0,0,0);
+      printf("Case %d: %d\n",cs,ans);
+  }
        
- 
- 
- 
- 
- 
-   
- 
- 
- 
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
