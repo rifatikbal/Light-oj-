@@ -54,141 +54,68 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit   10001
- 
- 
 typedef pair<ll,ll> iPair;
- 
- 
- 
- 
- 
+
  char A[11];
- 
  int node;
  int  tree[11*limit][11];
  bool check[11*limit+3];
- 
- 
- bool insert(){
- int  pos=1;
- 
- bool ys=false;
- 
- for1(strlen(A))
- {
- 
-    if(tree[pos][A[i]-'0']==-1)
-    {
+
+   bool insert()
+   {
+     int  pos=1;
+     bool ys=false;
+     for1(strlen(A))
+     {
+        if(tree[pos][A[i]-'0']==-1)
+        {
             tree[pos][A[i]-'0']=++node;
- 
- 
- 
+        }
+        pos=tree[pos][A[i]-'0'];
+        if(check[pos])ys=true;
     }
- 
-    pos=tree[pos][A[i]-'0'];
- 
-    if(check[pos])ys=true;
- 
- 
- 
- }
- 
- for(ll i=0;i<10;i++)if(tree[pos][i]!=-1)ys=true;
- 
- 
- check[pos]=true;
- 
-if(ys)
-return true;
- 
- 
-return false;
- 
- }
+
+    for(ll i=0;i<10;i++)if(tree[pos][i]!=-1)ys=true;
+    check[pos]=true;
+    if(ys)return true;
+    return false;
+  }
  
 int main()
 {
- 
-/*              
-       freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
- 
- 
- 
-                ll test;
-                cin>>test;
-                tst(test)
-                {    
-                    memset(tree,-1,sizeof tree);
- 
-                    memset(check,false,sizeof check);
- 
-                    node=1;
-   
-                    ll n;
- 
-                    sl(n);
- 
-                    bool ys=false;
- 
-                    for1(n)
-                    {
- 
- 
-                       
-                        scanf("%s",A);
-                        bool res=insert();
- 
-                        if(res)ys=true;
- 
- 
- 
- 
-                    }
- 
-                    printf("Case %d: ",cs);
- 
- 
-                    if(ys)pno
- 
-                    else pys
- 
-           
-           
-           
-           
-                   
-                }
-       
- 
- 
- 
-        /**
-       *    @author     : Ikbal Hossain
-       *    @University  : RUET CSE 15
-       *    @CodeForces : iAmrifat
-       *    @UVA        : rifat_ikbal
-       *    @facebook   : https://www.facebook.com/ikbal.rifat.5
-       */
- 
-      /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
-      /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
-      /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
-      /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
- 
-}
- 
- 
+    /*              
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);*/
+    ll test;
+    cin>>test;
+    tst(test)
+    {    
+        memset(tree,-1,sizeof tree);
+        memset(check,false,sizeof check);
+        node=1;
+        ll n;
+        sl(n);
+        bool ys=false;
+        for1(n)
+        {
+            scanf("%s",A);
+            bool res=insert();
+            if(res)ys=true;
+        }
+        printf("Case %d: ",cs);
+        if(ys)pno
+        else pys
+    }
+      /**
+     *    @author     : Ikbal Hossain
+     *    @University  : RUET CSE 15
+     *    @CodeForces : iAmrifat
+     *    @UVA        : rifat_ikbal
+     *    @facebook   : https://www.facebook.com/ikbal.rifat.5
+     */
 
-VOLUME
-Volume Home
-Problem Set
-Problem Category
-Problem Setters
-Submit Problem
-My Submissions
-Judge Status
-Ranklist
-User Statistics
-Compare User Statistics
- 
+    /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
+    /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
+    /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
+    /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
+}
