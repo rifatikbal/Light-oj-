@@ -55,150 +55,103 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 10000
-
-
-
 typedef pair<ll,ll> iPair;
-ll frq[limit+2];
-ll col[limit+2];
-ll high[limit+2];
-ll low[limit+2];
+
+ll frq[limit+2],col[limit+2],high[limit+2],low[limit+2];
 bool visited[limit+2];
 vector<ll>graph[limit+2];
 stack<ll>st;
 ll cc=0;
-
-void  dfs(int u,int pr,int depth){
+void  dfs(int u,int pr,int depth)
+{
     visited[u]=true;
-
     st.push(u);
     high[u]=low[u]=depth;
     int child=0;
-    for (int i = 0; i < graph[u].size(); i++) {
-        
- 
+
+    for (int i = 0; i < graph[u].size(); i++)
+    {
         int v=graph[u][i];
-        if(visited[v]== true&& v!= pr ) {
- 
+        if(visited[v]== true&& v!= pr )
+        {
             low[u]=min(low[u],high[v]);
- 
-        
         }
-        else if(visited[v]!= true) {
- 
- 
- 
+        else if(visited[v]!= true)
+        {
             dfs(v, u, depth + 1);
- 
             low[u]=min(low[u],low[v]);
-      
         }
- 
- 
     }
-
-
- if(high[u]==low[u]){
-cc++;
-
-while(!st.empty()){
-
-col[st.top()]=cc;
-
-
-
-    if(u==st.top()){
-    st.pop();
-    break;
-}
-
-st.pop();
-}
-
-
-
- }
- 
+    
+    if(high[u]==low[u])
+    {
+        cc++;
+        while(!st.empty())
+        {
+            col[st.top()]=cc;
+            if(u==st.top())
+            {
+                st.pop();
+                break;
+            }
+            st.pop();
+        }
+    }
 }
 
 int main()
 {
 /* freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);*/
+    ll test;
+    cin>>test;
+    tst(test)
+    {
+        cc=0;
+        ll n,m;
+        sl2(n,m);
 
-ll test;
+        for(ll i=0;i<m;i++)
+        {
+            ll a,b;
+            sl2(a,b);
+            graph[a].pb(b);
+            graph[b].pb(a);
+        }
 
-cin>>test;
+        dfs(0,-1,0);
 
-tst(test){
-    cc=0;
-ll n,m;
+        ll ans=0;
+        for(ll i=0;i<n;i++)
+        {
 
-sl2(n,m);
+            for(ll j=0;j<graph[i].size();j++)\
+            {
+                ll v=graph[i][j];
+                if(col[i]==col[v])continue;
+                frq[col[i]]++;
+                frq[col[v]]++;
+            }
+        }
 
-for(ll i=0;i<m;i++){
+        for(ll i=0;i<=cc;i++)
+        {
+            if(frq[i]==2)
+            {
+                frq[i]=0;
+                ans++;
+            }
+            frq[i]=0;
+        }
 
-ll a,b;
-sl2(a,b);
-
-graph[a].pb(b);
-graph[b].pb(a);
-
-
-}
-
-dfs(0,-1,0);
-
-
-ll ans=0;
-
-for(ll i=0;i<n;i++){
-
-for(ll j=0;j<graph[i].size();j++){
-
-
-    ll v=graph[i][j];
-
-if(col[i]==col[v])continue;
-
-
-//cout<<i<<" "<<v<<endl;
-frq[col[i]]++;
-frq[col[v]]++;
-
-
-}
-
-
-}
-
-
-for(ll i=0;i<=cc;i++){
-//cout<<frq[i]<<endl;
-
-if(frq[i]==2){
-
-
-frq[i]=0;
-
-    ans++;
-}
-frq[i]=0;
-}
-
-frq[cc+1]=0;
-
-printf("Case %d: %lld\n",cs,(ans+1)/2);
-
-for(ll i=0;i<n;i++){
-    graph[i].clear();
-
-    visited[i]=false;
-    col[i]=0;
-
-}
-
-
-}
-
+        frq[cc+1]=0;
+        printf("Case %d: %lld\n",cs,(ans+1)/2);
+        
+        for(ll i=0;i<n;i++)
+        {
+            graph[i].clear();
+            visited[i]=false;
+            col[i]=0;
+        }
+    }
 }
