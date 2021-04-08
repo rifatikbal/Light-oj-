@@ -58,139 +58,72 @@ using namespace std;
 #define limit 200006
 #define lmt 2520
 //string to_string(ll n) { stack<ll>st; while(n) { st.push(n%10); n=n/10; } string A=""; while(!st.empty()) { A+=(char)(st.top()+'0'); st.pop(); } return A; }
+typedef pair<ll,ll> iPair;
  
- 
-             typedef pair<ll,ll> iPair;
- 
-             ll dp[11][91][91][2][2];
-             
-   
-             ll n,k;
- 
-             string A;
- 
-           
-            ll solve(ll pos,ll num,ll dig,bool taken,bool flg)
-            {
-                 
- 
-                 //cout<<pos<<" "<<num<<" "<<dig<<" "<<taken<<endl;
-             if(pos==n)
-               {
-                 
-                  if(dig==0&&num==0)return 1;
-                  else return 0;
-               }
- 
-               ll  & ret =dp[pos][num][dig][taken][flg];
- 
-               if(ret!=-1)return ret;
- 
-               ll sm=0;
- 
-               for(ll i=0;i<=9;i++)
-               {
- 
-                 
- 
-                 if(!taken&&(A[pos]-'0')<i)continue;
- 
-                 bool tkn=taken;
-                 bool  flag=flg;
- 
-                 if(i<A[pos]-'0')tkn=true;
-                 if(i!=0)flag=true;
- 
-                 sm+=solve(pos+1,(num*10+i)%k,(dig+i)%k,tkn,flag);
- 
- 
- 
-               }
- 
-               //cout<<sm<<endl;
- 
-               return  ret=sm;
- 
-               
- 
- 
-            }
+ll dp[11][91][91][2][2],n,k;
+string A;
+
+ll solve(ll pos,ll num,ll dig,bool taken,bool flg)
+{
+   if(pos==n)
+   {
+      if(dig==0&&num==0)return 1;
+      else return 0;
+   }
+
+   ll  & ret =dp[pos][num][dig][taken][flg];
+   if(ret!=-1)return ret;
+
+   ll sm=0;
+   for(ll i=0;i<=9;i++)
+   {
+     if(!taken&&(A[pos]-'0')<i)continue;
+     
+     bool tkn=taken;
+     bool  flag=flg;
+     if(i<A[pos]-'0')tkn=true;
+     if(i!=0)flag=true;
+
+     sm+=solve(pos+1,(num*10+i)%k,(dig+i)%k,tkn,flag);
+   }
+
+   return  ret=sm;
+}
  
 int main()
 {   /*      
-           freopen("input.txt","r",stdin);
-            freopen("output.txt","w",stdout);
-*/
- 
- 
- 
- 
-            ll test;
- 
-            cin>>test;
- 
-            tst(test)
-            {
- 
- 
-                ll l,r;
- 
-                sl3(l,r,k);
- 
- 
-               // bug1
- 
-               
- 
-                A=to_string(r);
- 
-             
-                n=A.size();
- 
-//                cout<<n<<endl;
- 
-                if(k>=90)
-                {
- 
-                 
-                printf("Case %d: 0\n",cs);
-                  continue;
-                }
- 
-                memset(dp,-1,sizeof dp);
- 
-                ll ans=solve(0,0,0,0,0);
- 
-                memset(dp,-1,sizeof dp);
-                ll p=0;
-               
- 
-                A=to_string(l-1);
-                n=A.size();
-                p=solve(0,0,0,0,0);
- 
-       
-               
- 
-               
- 
-                printf("Case %d: %lld\n",cs,ans-p);
-               
- 
-               // cout<<ans-p<<endl;
- 
- 
- 
- 
-                //cout<<ans<<endl;
- 
-            }
- 
- 
- 
- 
- 
- 
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    */
+    ll test;
+    cin>>test;
+    tst(test)
+    {
+        ll l,r;
+        sl3(l,r,k);
+
+        A=to_string(r);
+        n=A.size();
+        
+        if(k>=90)
+        {
+          printf("Case %d: 0\n",cs);
+          continue;
+        }
+
+        memset(dp,-1,sizeof dp);
+        
+        ll ans=solve(0,0,0,0,0);
+        
+        memset(dp,-1,sizeof dp);
+        
+        ll p=0;
+        A=to_string(l-1);
+        n=A.size();
+        p=solve(0,0,0,0,0);
+        
+        printf("Case %d: %lld\n",cs,ans-p);
+    }
               /**
              *    @author     : Ikbal Hossain
              *    @College    : RUET CSE 15
