@@ -66,97 +66,60 @@ int  Reset(int x,int pos ){ return x= x &~(1<<pos);}
 #define zero puts("0");
 #define limit 200006
 #define md 1000000007
- 
- 
- 
- 
+
 typedef pair<int,int> iPair;
- 
- 
 int A[101][101],dp[101][101][101],n,m;
- 
- 
- 
 int solve(int x1,int y1,int x2,int y2)
 {
- 
-      int & ret=dp[x1][y1][x2];
- 
-      if(x1==x2&&y1==y2)return 0;
- 
-      if(ret!=-1)return ret;
- 
-      if(x1>n||y1>m||x2>n||y2>m)return 0;
-      int mx=0;
-      int x=solve(x1+1,y1,x2+1,y2);
-      mx=max(x,mx);
-      x=solve(x1+1,y1,x2,y2+1);
-      mx=max(mx,x);
-      x=solve(x1,y1+1,x2,y2+1);
-      mx=max(mx,x);
-      x=solve(x1,y1+1,x2+1,y2);
-      mx=max(mx,x);
- 
- 
-     return ret=mx+A[x1][y1]+A[x2][y2];
- 
+    int & ret=dp[x1][y1][x2];
+    if(x1==x2&&y1==y2)return 0;
+    if(ret!=-1)return ret;
+
+    if(x1>n||y1>m||x2>n||y2>m)return 0;
+    int mx=0;
+    int x=solve(x1+1,y1,x2+1,y2);
+    mx=max(x,mx);
+    x=solve(x1+1,y1,x2,y2+1);
+    mx=max(mx,x);
+    x=solve(x1,y1+1,x2,y2+1);
+    mx=max(mx,x);
+    x=solve(x1,y1+1,x2+1,y2);
+    mx=max(mx,x);
+    return ret=mx+A[x1][y1]+A[x2][y2];
 }
  
 int main()
 {
- 
-    /*          
-       freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
- 
-                int test;
-                cin>>test;
-                tst(test)
-                {  
-                  memset(dp,-1,sizeof dp);
- 
-                   //int n,m;
- 
-                   si2(n,m);
- 
-                   fr(i,1,n)
-                   {
- 
-                    fr(j,1,m)si(A[i][j]);
-                   }
- 
-                   int ans=solve(2,1,1,2);
- 
- 
-                   printf("Case %d: %d\n",cs,ans+A[1][1]+A[n][m]);
- 
- 
- 
-                   
-                }
-       
- 
- 
- 
- 
- 
-   
- 
- 
- 
-        /**
-       *    @author     : Ikbal Hossain
-       *    @University  : RUET CSE 15
-       *    @CodeForces : iAmrifat
-       *    @UVA        : rifat_ikbal
-       *    @facebook   : https://www.facebook.com/ikbal.rifat.5
-       */
- 
-      /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
-      /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
-      /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
-      /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
- 
+  /*          
+     freopen("input.txt","r",stdin);
+     freopen("output.txt","w",stdout);*/
+      int test;
+      cin>>test;
+      tst(test)
+      {  
+         memset(dp,-1,sizeof dp);
+         si2(n,m);
+         fr(i,1,n)
+         {
+           fr(j,1,m)si(A[i][j]);
+         }
+         int ans=solve(2,1,1,2);
+         printf("Case %d: %d\n",cs,ans+A[1][1]+A[n][m]); 
+      }
+
+      /**
+     *    @author     : Ikbal Hossain
+     *    @University  : RUET CSE 15
+     *    @CodeForces : iAmrifat
+     *    @UVA        : rifat_ikbal
+     *    @facebook   : https://www.facebook.com/ikbal.rifat.5
+     */
+
+    /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
+    /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
+    /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
+    /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
+
 }
  
  
