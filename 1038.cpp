@@ -50,108 +50,60 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 200006
- 
- 
 typedef pair<ll,ll> iPair;
- 
- 
- double  dp[100001];
+
+double  dp[100001];
  
 int main()
-{
- 
-               
+{              
 /*       freopen("input.txt","r",stdin);
        freopen("output.txt","w",stdout);
 */
-           
-            dp[1]=0;
-          for(ll i=2;i<=100000;i++)
-          {
- 
-            ll c=0;
- 
-            double s=0;
- 
- 
- 
-           for(ll j=1;j*j<=i;j++)
-           {
- 
- 
-             
-             if(i%j==0)
-             {    
- 
-                s+=(double)(1+(dp[j]));
- 
- 
-                ll p=i/j;
+    dp[1]=0;
+    for(ll i=2;i<=100000;i++)
+    { 
+       ll c=0;
+       double s=0;
+       for(ll j=1;j*j<=i;j++)
+       {
+         if(i%j==0)
+         {    
+            s+=(double)(1+(dp[j]));
+            ll p=i/j;
+            c++;
+            if(j!=p)
+            {
                 c++;
- 
- 
- 
- 
-                if(j!=p)
-                {
-                    c++;
- 
-                    s+=(double)(1+(dp[p]));
- 
- 
-                }
-             }
- 
+                s+=(double)(1+(dp[p]));
+            }
          }
- 
-         //s++;
-            //if(c-1!=0)
- 
-             s=(double)s/(c-1);
- 
-         dp[i]=s;
- 
- 
-             // cout<<s<<endl;
-             
-           }
- 
- 
- 
- 
-                ll test;
-                cin>>test;
-                tst(test)
-                {
- 
-                    int n;
- 
-                    si(n);
- 
-                    printf("Case %d: %0.6f\n",cs,dp[n]);
- 
-                }
-       
- 
- 
- 
-   
- 
- 
- 
-        /**
-       *    @author     : Ikbal Hossain
-       *    @University  : RUET CSE 15
-       *    @CodeForces : iAmrifat
-       *    @UVA        : rifat_ikbal
-       *    @facebook   : https://www.facebook.com/ikbal.rifat.5
-       */
- 
-      /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
-      /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
-      /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
-      /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
- 
+       }
+       s=(double)s/(c-1);
+       dp[i]=s;  
+    }
+
+    ll test;
+    cin>>test;
+    tst(test)
+    {
+        int n;
+        si(n);
+        printf("Case %d: %0.6f\n",cs,dp[n]);
+    }
+
+      /**
+     *    @author     : Ikbal Hossain
+     *    @University  : RUET CSE 15
+     *    @CodeForces : iAmrifat
+     *    @UVA        : rifat_ikbal
+     *    @facebook   : https://www.facebook.com/ikbal.rifat.5
+     */
+
+    /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
+    /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
+    /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
+    /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
+
 }
  
  
