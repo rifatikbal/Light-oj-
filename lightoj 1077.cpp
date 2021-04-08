@@ -55,38 +55,24 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 200006
- 
- 
 typedef pair<ll,ll> iPair;
- 
  
 int main()
 {
- freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
+/*    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);*/
+    ll test;
+    cin>>test; 
+    tst(test)
+    {
+        ll x1,y1,x2,y2;
+        sl3(x1,y1,x2);
+        sl(y2);
 
-ll test;
-cin>>test;
- 
-tst(test){
- 
- 
- 
-    ll x1,y1,x2,y2;
- 
-    sl3(x1,y1,x2);
-    sl(y2);
- 
-    ll q=abs(y1-y2);
-    ll p=abs(x1-x2);
- 
-ll ans=__gcd(p,q);
- 
- 
- 
-    printf("Case %d: %ld\n",cs,ans+1);
-}
- 
- 
+        ll q=abs(y1-y2);
+        ll p=abs(x1-x2);
+        ll ans=__gcd(p,q);
+        printf("Case %d: %ld\n",cs,ans+1);
+    }
 }
  
