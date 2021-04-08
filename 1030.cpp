@@ -50,95 +50,38 @@ using namespace std;
  
 #define bug2(a,b) cout<<a<<" "<<b<<endl;
 #define bug3(a,b,c) cout<<a<<" "<<b<<" "<<c<<endl;
-/*
-#define bug4(a,b,c,d) cout<<a<<" "<<b<<" "<<c<<" "<<d<<endl;
- 
-#define bug5(a,b,c,d,e) cout<<a<<" "<<b<<" "<<c<<" "<<d<<" "<<e<<endl;
-#define bug5(a,b,c,d,e,f) cout<<a<<" "<<b<<" "<<c<<" "<<d<<" "<<e<<" "<<f<<endl;
-#define bug1(a) cout<<a<<endl;*/
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 200006
- 
- 
 typedef pair<ll,ll> iPair;
- 
- 
- double ans[101];
- int A[101];
- 
+double ans[101];
+int A[101];
 int main()
 {
- 
    /*            
        freopen("input.txt","r",stdin);
        freopen("output.txt","w",stdout);*/
- 
-                int test;
-                cin>>test;
-                tst(test)
+        int test;
+        cin>>test;
+        tst(test)
+        {
+            int  n;
+            si(n);
+            for(ll i=1;i<=n;i++)si(A[i]),ans[i]=0;
+            ans[n]=0;
+            for(ll i=n-1;i>0;i--)
+            {
+                ll cnt=0;
+                for(ll j=i+1;j<=n&&cnt<6;j++)
                 {
- 
- 
- 
-                    int  n;
- 
-                    si(n);
- 
-                    for(ll i=1;i<=n;i++)si(A[i]),ans[i]=0;
- 
- 
- 
- 
-                     ans[n]=0;
-                    for(ll i=n-1;i>0;i--)
-                    {
- 
-                         
-                         ll cnt=0;
- 
-                         //bug
- 
-                        for(ll j=i+1;j<=n&&cnt<6;j++)
-                        {
-                         ans[i]+=(ans[j]+A[j]);
- 
- 
-                      //   cout<<A[j]<<" "<<ans[j]<<endl;
- 
-                         cnt++;
- 
-                        }
- 
-                        if(cnt)
- 
- 
-                        ans[i]/=cnt;
- 
-                    //cout<<i<<" "<<ans[i]<<" "<<cnt<<endl;
-                    }
- 
-                 printf("Case %d: %0.6f\n",cs,(double)ans[1]+A[1]);
- 
- 
- 
- 
-           
-           
-           
-           
-                   
+                 ans[i]+=(ans[j]+A[j]);
+                 cnt++;
                 }
+                if(cnt)ans[i]/=cnt;
+            }
+            printf("Case %d: %0.6f\n",cs,(double)ans[1]+A[1]);
+        }
        
- 
- 
- 
- 
- 
-   
- 
- 
- 
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
