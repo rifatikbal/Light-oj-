@@ -66,212 +66,131 @@ int  Reset(int x,int pos ){ return x= x &~(1<<pos);}
 #define zero puts("0");
 #define limit 100001
 #define md 1000000007
+typedef pair<int,int> iPair;
 
+int lavel[limit],par[limit][20],pmx[limit][20],pmn[limit][20];
+vector<iPair>graph[limit];
 
-  
-
-   typedef pair<int,int> iPair;
-   int lavel[limit],par[limit][20],pmx[limit][20],pmn[limit][20];
-
-   vector<iPair>graph[limit];
-
-
-   void dfs(int u,int pp)
-   {
-           //cout<<u<<" "<<pp<<endl;
-
+void dfs(int u,int pp)
+{
     for(int i=0;i<graph[u].size();i++)
     {
-
        int v=graph[u][i].ff;
-
-
-
        if(v==pp)continue;
-
-      
+       
        int cst=graph[u][i].ss;
        lavel[v]=lavel[u]+1;
        pmx[v][0]=cst;
        pmn[v][0]=cst;
        par[v][0]=u;
-
        dfs(v,u);
     }
-    //nl
+}
 
-   }
-
-   void  sparse(int n)
-   {
-
+void  sparse(int n)
+{
    for(int j=1;(1<<j)<=n;j++)
    {
-
       for(int i=1;i<=n;i++)
       {      
-
         if(par[i][j-1]==-1)continue;
 
         par[i][j]=par[par[i][j-1]][j-1];
-
         pmx[i][j]=max(pmx[i][j-1],pmx[par[i][j-1]][j-1]);
         pmn[i][j]=min(pmn[i][j-1],pmn[par[i][j-1]][j-1]);
-
-
       }
-
    }
+}
 
-
-   }
-
-
-   iPair query(int x,int y)
+iPair query(int x,int y)
+{
+   if(lavel[x]<lavel[y])
    {
-
-
-       if(lavel[x]<lavel[y])
-       {
-         int z=x;
-          x=y;
-          y=z;
-
-       }
-
-       int p=19,mx=0,mn=INFP;
-                      
-       for(int i=p;i>=0;i--)
-       {
-
-              if(lavel[x]-(1<<i)>=lavel[y])
-              {
-                   mx=max(mx,pmx[x][i]);
-                   mn=min(mn,pmn[x][i]);
-
-
-                    x=par[x][i];
-
-
-
-              
-              }
-
-       }
-
-       if(x==y)return mkpr(mx,mn);
-
-       for(int i=p;i>=0;i--)
-       {
-
-           
-          if(par[x][i]!=-1&&(par[x][i]!=par[y][i]))
-          {
-
-            mx=max(mx,pmx[x][i]);
-            mx=max(mx,pmx[y][i]);
-
-            mn=min(mn,pmn[x][i]);
-            mn=min(mn,pmn[y][i]);
-
-            x=par[x][i];
-            y=par[y][i];
-             
-
-          }
-
-      
-
-       }
-           mx=max(mx,pmx[x][0]);
-           mx=max(mx,pmx[y][0]);
-
-           mn=min(mn,pmn[x][0]);
-           mn=min(mn,pmn[y][0]);
-
-     return mkpr(mx,mn);
-
-
-
+     int z=x;
+      x=y;
+      y=z;
    }
 
+   int p=19,mx=0,mn=INFP;              
+   for(int i=p;i>=0;i--)
+   {
+      if(lavel[x]-(1<<i)>=lavel[y])
+      {
+           mx=max(mx,pmx[x][i]);
+           mn=min(mn,pmn[x][i]);
+           x=par[x][i];
+      }
+   }
 
+ if(x==y)return mkpr(mx,mn);
 
+ for(int i=p;i>=0;i--)
+ {
+    if(par[x][i]!=-1&&(par[x][i]!=par[y][i]))
+    {
 
+      mx=max(mx,pmx[x][i]);
+      mx=max(mx,pmx[y][i]);
 
+      mn=min(mn,pmn[x][i]);
+      mn=min(mn,pmn[y][i]);
+
+      x=par[x][i];
+      y=par[y][i];
+    }
+ }
+ mx=max(mx,pmx[x][0]);
+ mx=max(mx,pmx[y][0]);
+ mn=min(mn,pmn[x][0]);
+ mn=min(mn,pmn[y][0]);
+ return mkpr(mx,mn);
+}
 
 int main()
 {
- /*
-               
-       freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
+    /*
+           
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);*/
+    int test;
+    cin>>test;
+    tst(test)
+    {    
+        memset(par,-1,sizeof par);
+        memset(pmx,0,sizeof pmx);
+        memset(pmn,INFP,sizeof pmn);
 
-                int test;
-                cin>>test;
-                tst(test)
-                {    
-                    memset(par,-1,sizeof par);
-                    memset(pmx,0,sizeof pmx);
-                    memset(pmn,INFP,sizeof pmn);
-                    int n;
+        int n;
+        si(n);
+        fr(i,1,n)graph[i].clear();
+        vector< pair<int,iPair> >v;
+        
+        fr(i,1,n-1)
+        {
 
-                    si(n);
-
-                    fr(i,1,n)graph[i].clear();
-
-                    vector< pair<int,iPair> >v;
-
-                    fr(i,1,n-1)
-                    {
-
-                      int a,b,c;
-                      si3(a,b,c);
-                      
-                      graph[a].pb(mkpr(b,c));
-                      graph[b].pb(mkpr(a,c));
-                    }
-
-               
-                    lavel[1]=0;
-
-                    
-
-                    dfs(1,-1);
-
-                  
-
-                    sparse(n);
-                    
-
-                    printf("Case %d:\n",cs);
-                    int q;
-                    si(q);
-
-                    fr(i,1,q)
-                    {
-                      
-                      int x,y;
-                      si2(x,y);
-
-                      iPair ans=query(x,y);
-
-                      printf("%d %d\n",ans.ss,ans.ff);
-
-
-                    }
-
-                    
-                }
-       
-
-
-
-
-
-    
-
- 
+          int a,b,c;
+          si3(a,b,c);
+          
+          graph[a].pb(mkpr(b,c));
+          graph[b].pb(mkpr(a,c));
+        }
+        
+        lavel[1]=0;
+        dfs(1,-1);
+        sparse(n);
+        
+        printf("Case %d:\n",cs);
+        
+        int q;
+        si(q);
+        fr(i,1,q)
+        {
+          int x,y;
+          si2(x,y);
+          iPair ans=query(x,y);
+          printf("%d %d\n",ans.ss,ans.ff);
+        }
+    }
 
         /**
        *    @author     : Ikbal Hossain
