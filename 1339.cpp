@@ -66,183 +66,101 @@ using namespace std;
  
 int tree[4*limit+1];
 int A[limit],prv[limit],nxt[limit];
- 
- 
- 
- 
-   
-  void  create(int node,int b,int e)
-  {
-         
-         
-        if(b==e)
-        {
-          tree[node]=1;
-          return;
-        }
-         
-         
-        int l=2*node;
-        int r=l+1;
-         
-        int m=(b+e)/2;
-         
-        create(l,b,m);
-        create(r,m+1,e);
-         
-        int x=0;
-        if(A[m]==A[m+1])
-        {
-            //bug
- 
-          int p=min(e,nxt[m+1]);
-          int q=max(b,prv[m]);
- 
-          x=max(x,p-q+1);
- 
-        }
- 
-        x=max(tree[l],x);
-        x=max(tree[r],x);
- 
-        tree[node]=x;
-         
-  }
- 
- 
- 
- int query(int node,int b,int e,int i,int j )
+void  create(int node,int b,int e)
 {
- 
- 
-    if(b>j||e<i)
-    {
- 
-        return 0;
-    }
- 
- 
-    if(i<=b&&e<=j)
-    {
- 
- 
-        return tree[node];
- 
-    }
- 
-        int l=2*node;
-        int r=l+1;
-         
-        int m=(b+e)/2;
- 
- 
-    int p=query(l,b,m,i,j);
-    int q=query(r,m+1,e,i,j);
- 
-    int x=p;
- 
-     if(A[m]==A[m+1])
-     {
-          int p=min(j,nxt[m+1]);
-          int q=max(i,prv[m]);
- 
-          x=max(x,p-q+1);
- 
- 
-     
- 
-     }
- 
-     x=max(x,q);
- 
- 
- return x;
+  if(b==e)
+  {
+    tree[node]=1;
+    return;
+  }
+
+  int l=2*node;
+  int r=l+1;
+  int m=(b+e)/2;
+   
+  create(l,b,m);
+  create(r,m+1,e);
+
+  int x=0;
+  if(A[m]==A[m+1])
+  {
+    int p=min(e,nxt[m+1]);
+    int q=max(b,prv[m]);
+    x=max(x,p-q+1);
+  }
+  x=max(tree[l],x);
+  x=max(tree[r],x);
+  tree[node]=x;
 }
  
  
+ 
+int query(int node,int b,int e,int i,int j )
+{
+    if(b>j||e<i)return 0;
+    if(i<=b&&e<=j)return tree[node];
+
+    int l=2*node;
+    int r=l+1;
+    int m=(b+e)/2;
+    int p=query(l,b,m,i,j);
+    int q=query(r,m+1,e,i,j);
+    int x=p;
+
+     if(A[m]==A[m+1])
+     {
+        int p=min(j,nxt[m+1]);
+        int q=max(i,prv[m]);
+        x=max(x,p-q+1);
+     }
+     x=max(x,q);
+     return x;
+}
+
 int main()
 {
                      
-/*       freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
- 
- 
- 
-               int test;
-               cin>>test;
-               tst(test)
-               {
-                memset(tree,0,sizeof tree);
- 
-                int n,c,q;
- 
-                 si3(n,c,q);
-                fr1(n)si(A[i]);
- 
- 
-                for(int i=1;i<=n;)
-                {
-                   
-                   int j;
-                   for( j=i;j<=n&&A[j]==A[i];j++)
-                   {
-                       prv[j]=i;
- 
-                   }
- 
-                   i=j;
- 
- 
-                }
- 
- 
- 
-                for(int i=n;i>0;)
-                {
- 
- 
-                  int j;
- 
-                  for( j=i;j>0&&A[j]==A[i];j--)
-                  {
- 
-                  nxt[j]=i;
- 
-                  }
- 
-                  i=j;
-                }
- 
- 
-                //for(ll i=1;i<=n;i++)cout<<prv[i]<<" "<<nxt[i]<<endl;
- 
- 
-                create(1,1,n);
- 
-                printf("Case %d:\n",cs);
- 
- 
-                while(q)
-                {
- 
-                  int l,r;
-                  si2(l,r);
- 
-                  printf("%d\n",query(1,1,n,l,r));
- 
-                  q--;
-                }
- 
- 
- 
- 
- 
-           
-           
-           
-           
-                   
-               }
+/* freopen("input.txt","r",stdin);
+   freopen("output.txt","w",stdout);*/
+   int test;
+   cin>>test;
+   tst(test)
+   {
+      memset(tree,0,sizeof tree);
+      int n,c,q;
+      si3(n,c,q);
+      fr1(n)si(A[i]);
+
+      for(int i=1;i<=n;)
+      {
+         int j;
+         for( j=i;j<=n&&A[j]==A[i];j++)
+         {
+             prv[j]=i;
+         }
+         i=j;
+      }
+
+      for(int i=n;i>0;)
+      {
+        int j;
+        for( j=i;j>0&&A[j]==A[i];j--)
+        {
+          nxt[j]=i;
+        }
+        i=j;
+      }
+      create(1,1,n);
+      printf("Case %d:\n",cs);
+
+      while(q)
+      {
+        int l,r;
+        si2(l,r);
+        printf("%d\n",query(1,1,n,l,r));
+        q--;
+      }   
+   }
      
 }
  
