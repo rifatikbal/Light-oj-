@@ -63,142 +63,70 @@ using namespace std;
 #define zero puts("0");
 #define limit 1001
 #define md 1000000007
- 
- 
 typedef pair<ll,ll> iPair;
- 
- 
-     vector<int>graph[limit];
-     int dp[limit][2];
-     bool visited[limit];
- 
-    int solve(int u,int par,bool flag)
-    {
-           
-           //cout<<u<<" "<<flag<<endl;
- 
-         visited[u]=true;
-        int & ret=dp[u][flag];
- 
-        if(ret!=-1)return ret;
- 
-        int x=0;
-        //y=0;
- 
-        if(!flag)
- 
-        {  
- 
-        x++;
- 
-        for(int i=0;i<graph[u].size();i++)
-          {
- 
-               int v=graph[u][i];
- 
-               if(v==par)continue;
- 
-               x+=solve(v,u,1);
- 
- 
- 
- 
-          }
- 
-         }
- 
-         int y=0;
- 
-          for(int i=0;i<graph[u].size();i++)
-          {
- 
-               int v=graph[u][i];
- 
-               if(v==par)continue;
- 
-               y+=solve(v,u,0);
- 
- 
- 
- 
-          }
- 
-          //cout<<max(x,y)<<endl;
-         
-         
- 
-          return ret=max(x,y);
- 
+
+vector<int>graph[limit];
+int dp[limit][2];
+bool visited[limit];
+
+int solve(int u,int par,bool flag)
+{
+    visited[u]=true;
+    int & ret=dp[u][flag];
+    if(ret!=-1)return ret;
+    int x=0;
+    if(!flag)
+    {  
+      x++;
+      for(int i=0;i<graph[u].size();i++)
+      {
+           int v=graph[u][i];
+           if(v==par)continue;
+           x+=solve(v,u,1);
       }
- 
- 
- 
+    }
+    int y=0;
+    for(int i=0;i<graph[u].size();i++)
+    {
+         int v=graph[u][i];
+         if(v==par)continue;
+         y+=solve(v,u,0);
+    }
+    return ret=max(x,y);
+}
 int main()
 {
- 
-/*              
-       freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
- 
-                ll test;
-                cin>>test;
-                tst(test)
-                {  
- 
-                     memset(visited,false,sizeof visited);
-                     memset(dp,-1,sizeof dp);
- 
-                     int n,m;
- 
-                    si2(n,m);
- 
-                    for1(m)
-                    {
- 
-                        int a,b;
- 
-                        si2(a,b);
- 
-                        graph[a].pb(b);
-                        graph[b].pb(a);
- 
-                    }
- 
-                 int ans=0;
- 
-                 for(int i=1;i<=n;i++)
-                 {
- 
- 
-                    if(!visited[i]) ans+=solve(i,-1,0);
-                 }
- 
-                 for(int i=1;i<=n;i++)
-                 {
- 
- 
-                    graph[i].clear();
- 
-                 }
- 
-                 printf("Case %d: %d\n",cs,ans);
- 
- 
-           
-           
-           
-           
-                   
-                }
-       
- 
- 
- 
- 
-   
- 
- 
- 
+  /*              
+  freopen("input.txt","r",stdin);
+  freopen("output.txt","w",stdout);*/
+    ll test;
+    cin>>test;
+    tst(test)
+    {  
+        memset(visited,false,sizeof visited);
+        memset(dp,-1,sizeof dp);
+        int n,m;
+        si2(n,m);
+        for1(m)
+        {
+            int a,b;
+            si2(a,b);
+            graph[a].pb(b);
+            graph[b].pb(a);
+        }
+       int ans=0;
+       for(int i=1;i<=n;i++)
+       {
+          if(!visited[i]) ans+=solve(i,-1,0);
+       }
+
+       for(int i=1;i<=n;i++)
+       {
+          graph[i].clear();
+       }
+       printf("Case %d: %d\n",cs,ans);
+    }
+
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
