@@ -54,89 +54,53 @@ using namespace std;
  
 #define  pmn puts("-1");
 #define zero puts("0");
-//
-//vector<bool>visited(1000007,false);
-//vector<ll int >data;
-//vector<ll int >info;
-//ll int cmsum[10000007];
-   int suff[1000001];
 
-ll int   kmp(char text[], char pattern[]){
+int suff[1000001];
 
-  
+ll int   kmp(char text[], char pattern[])
+{
+  int i=0,j=-1,sz=strlen(pattern);
+  suff[0]=-1;
 
-    int i=0,j=-1,sz=strlen(pattern);
-
-    suff[0]=-1;
-
-while(i<sz){
-
-
-while(j>=0&&pattern[i]!=pattern[j]){
-  
-
-  j=suff[j];
-}
-
-//cout<<i<<" "<<j<<endl;
-
-i++;
-j++;
-suff[i]=j;
-
-}
-
-
-i=0,j=0;
-
-ll n=strlen(text),c=0;
-while(i<n){
-
-
-while(j>=0&&text[i]!=pattern[j]){
-
-  j=suff[j];
-}
-
-
-
-i++;
-j++;
-
-
-
-if(j==sz){
-  c++;
-}
-
-
-}
-
-return c;
-
-}
-
-int main(){
-/*     freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);*/
-
- int a,b,p,q,r,s,n,m,x,y,sum,ans,mx,mn, cnt,z,c;
-bool ys,no;
-ll test;
-
-cin>>test;
-     char A[1000001],B[1000001];
-tst(test){
-
-
-     scanf("%s",A);
-     scanf("%s",B);
-
-     ll ans=kmp(A,B);
-printf("Case %d: %lld\n",cs,ans);
-
+  while(i<sz)
+  {
+    while(j>=0&&pattern[i]!=pattern[j])
+    {
+      j=suff[j];
+    }
+    i++;
+    j++;
+    suff[i]=j;
   }
 
-    //f
+  i=0,j=0;
+  ll n=strlen(text),c=0;
+  
+  while(i<n)
+  {
+    while(j>=0&&text[i]!=pattern[j])j=suff[j];
+    i++;
+    j++;
+    if(j==sz)c++;
+  }
+  return c;
+}
+
+int main()
+{
+/*     freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);*/
+   int a,b,p,q,r,s,n,m,x,y,sum,ans,mx,mn, cnt,z,c;
+   bool ys,no;
+   ll test;
+   cin>>test;
+   char A[1000001],B[1000001];
+   tst(test)
+   {
+       scanf("%s",A);
+       scanf("%s",B);
+       ll ans=kmp(A,B);
+       printf("Case %d: %lld\n",cs,ans);
+   }
 }
 
