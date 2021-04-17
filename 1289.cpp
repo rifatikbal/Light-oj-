@@ -60,132 +60,81 @@ using namespace std;
  
  
 typedef pair<ll,ll> iPair;
- 
- 
- int prime[5761460];
- 
+
+int prime[5761460],mulp[5761460];
 int  check[(100000003/32)+3];
+
+ll bitwise_sieve(ll n)
+{ 
+    int z,x=1;
+    prime[0]=2;
+    check[0]=check[0]|(1<<0);
+    check[0]=check[0]|(1<<1);
  
-ll bitwise_sieve(ll n){
- 
-int z,x=1;
-prime[0]=2;
-check[0]=check[0]|(1<<0);
-check[0]=check[0]|(1<<1);
- 
- 
-for(int i=3;i*i<=n;i+=2){
- 
- if(!(bool)(check[i/32]&(1<<(i%32)))) {
-prime[x]=i;
-x++;
-    for(int j=i*i;j<=n;j+=i){
- 
-        check[j/32]=check[j/32]|(1<<(j%32));
+    for(int i=3;i*i<=n;i+=2)
+    { 
+         if(!(bool)(check[i/32]&(1<<(i%32))))
+         {
+            prime[x]=i;
+            x++;
+            for(int j=i*i;j<=n;j+=i)
+            {
+                check[j/32]=check[j/32]|(1<<(j%32));
+            }
+        }
+        z=i;
     }
-}
-z=i;
-}
  
- 
-for(int j=4;j<=n;j+=2){
- 
-     check[j/32]=check[j/32]|(1<<(j%32));
- 
-}
- 
-for(int j=z+1;j<=n;j++){
- 
-    if(!(bool)(check[j/32]&(1<<(j%32)))){
-prime[x]=j;
-x++;
- 
+    for(int j=4;j<=n;j+=2)
+    {
+         check[j/32]=check[j/32]|(1<<(j%32));
     }
+
+    for(int j=z+1;j<=n;j++)
+    {
+        if(!(bool)(check[j/32]&(1<<(j%32))))
+        {
+            prime[x]=j;
+            x++;
+        }
+    }
+    return  x;
 }
-return  x;
- 
-}
- 
-int  mulp[5761460];
+
 int main()
 {
- 
- 
-int x=bitwise_sieve(100000000);
- 
-/*for(ll i=0;i<1000000;i++)cout<<prime[i]<<" ";
- 
-nl*/
- 
-//cout<<x<<endl;
- 
- 
-mulp[0]=1;
-ll p=1;
- 
- 
-for(ll i=0;i<x;i++){
-    p=mulp[i]*prime[i];
- 
-p=mulp[i]*prime[i];
-mulp[i+1]=p%mod;
-mulp[i+1]%=mod;
- 
- 
-}
- 
-//cout<<p<<endl;
-//cout<<prime[x-1]<<endl;
- 
-/*
- 
- freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);*/
- 
- 
- 
- 
- 
-//for(ll i=0;i<100;i++)cout<<prime[i]<<endl;
- 
-int test;
- 
-cin>>test;
-ulli ans;
-tst(test){
-int n;
-si(n);
- ans=1;
-for(ll i=0;prime[i]*prime[i]<=n;i++){
- 
-    ll t=n/prime[i];
-//  cout<<prime[i]<<endl;
- 
-    while(t/prime[i]){
- 
- 
-t/=prime[i];
- 
-ans*=prime[i];
- 
-ans%=mod;
+    int x=bitwise_sieve(100000000);
+    mulp[0]=1;
+    ll p=1;
+    for(ll i=0;i<x;i++)
+    {
+        p=mulp[i]*prime[i];
+        p=mulp[i]*prime[i];
+        mulp[i+1]=p%mod;
+        mulp[i+1]%=mod;
     }
- 
- 
-}
- 
-ll pos=upper_bound(prime,prime+x,n)-prime;
- 
-//cout<<mulp[pos]<<" "<<ans<<endl;
- 
-ans*=(mulp[pos]%mod);
-ans%=mod;
- 
-//cout<<ans<<endl;
- 
-printf("Case %d: %lld\n",cs,ans);
-}
- 
- 
+    int test;
+    cin>>test;
+    ulli ans;
+    tst(test)
+    {
+        int n;
+        si(n);
+        ans=1;
+        for(ll i=0;prime[i]*prime[i]<=n;i++)
+        {
+            ll t=n/prime[i];
+            while(t/prime[i])
+            {
+                t/=prime[i];
+                ans*=prime[i];
+                ans%=mod;
+            }
+        }
+        ll pos=upper_bound(prime,prime+x,n)-prime;
+        ans*=(mulp[pos]%mod);
+        ans%=mod;
+        printf("Case %d: %lld\n",cs,ans);
+    }
 }
  
