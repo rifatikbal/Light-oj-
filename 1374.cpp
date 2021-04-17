@@ -66,87 +66,57 @@ int  Reset(int x,int pos ){ return x= x &~(1<<pos);}
 #define zero puts("0");
 #define limit 1000001
 #define md 1000000007
- 
- 
- 
- 
+
 typedef pair<ll,ll> iPair;
  
 int frq[limit];
  
 int main()
 {
- 
-/*              
-       freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);
-*/
-                int test;
-                cin>>test;
-                tst(test)
-                {
- 
-                  int n;
- 
-                  si(n);
-                  memset(frq,0,sizeof frq);
- 
-                  fr(i,1,n)
-                  {
- 
-                    int a;
-                    si(a);
-                    frq[a]++;
- 
- 
-                  }
- 
-                  bool no=false;
-                  fr(i,1,n)
-                  {
- 
- 
-                    if(frq[i-1])frq[i-1]--;
-                    else if(frq[n-i])frq[n-i]--;
-                    else no=true;
- 
-                  }
- 
-                  printf("Case %d: ",cs);
- 
-                  if(no)pno
-                    else pys
- 
-                 
-           
-           
-           
-           
-                   
-                }
-       
- 
- 
- 
- 
- 
-   
- 
- 
- 
-        /**
-       *    @author     : Ikbal Hossain
-       *    @University  : RUET CSE 15
-       *    @CodeForces : iAmrifat
-       *    @UVA        : rifat_ikbal
-       *    @facebook   : https://www.facebook.com/ikbal.rifat.5
-       */
- 
-      /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
-      /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
-      /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
-      /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
- 
+    /*              
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    */
+    int test;
+    cin>>test;
+    tst(test)
+    {
+          int n;
+          si(n);
+          memset(frq,0,sizeof frq);
+
+          fr(i,1,n)
+          {
+            int a;
+            si(a);
+            frq[a]++;
+          }
+
+          bool no=false;
+          fr(i,1,n)
+          {
+            if(frq[i-1])frq[i-1]--;
+            else if(frq[n-i])frq[n-i]--;
+            else no=true;
+          }
+          printf("Case %d: ",cs);
+          if(no)pno
+            else pys
+    }
+
+      /**
+     *    @author     : Ikbal Hossain
+     *    @University  : RUET CSE 15
+     *    @CodeForces : iAmrifat
+     *    @UVA        : rifat_ikbal
+     *    @facebook   : https://www.facebook.com/ikbal.rifat.5
+     */
+
+    /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
+    /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
+    /* ll dx[] = {1,-1,1,-1,2,2,-2,-2} , dy[] = {2,2,-2,-2,1,-1,1,-1}; */ // Knight Direction
+    /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
+
 }
  
  
