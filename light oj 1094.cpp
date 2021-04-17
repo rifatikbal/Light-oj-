@@ -61,46 +61,30 @@ typedef pair<int,int > iPair;
 
 ll dis[limit+3];
 bool visited[limit+3];
-
 vector<iPair>graph[limit+3];
 
-void  bfs(ll node){
+void  bfs(ll node)
+{
+    queue<int>q;
+    q.push(node);
+    dis[node]=0;
+    while(!q.empty())
+    {
+        ll u=q.front();
+        visited[u]=true;
 
-
-queue<int>q;
-q.push(node);
-dis[node]=0;
-while(!q.empty()){
-
-
-ll u=q.front();
-
-//ll cost=q.front().ss;
-
-visited[u]=true;
-//cout<<u<<endl;
-q.pop();
-for(ll i=0;i<graph[u].size();i++){
-
-ll v=graph[u][i].ff;
-ll cost=graph[u][i].ss;
-
-if(!visited[v]){
-
-    dis[v]=dis[u]+cost;
-
-    q.push(v);
-}
-
-
-
-}
-
-
-}
-
-
-
+        q.pop();
+        for(ll i=0;i<graph[u].size();i++)
+        {
+            ll v=graph[u][i].ff;
+            ll cost=graph[u][i].ss;
+            if(!visited[v])
+            {
+                dis[v]=dis[u]+cost;
+                q.push(v);
+            }
+        }
+    }
 }
 
 int main()
@@ -108,75 +92,48 @@ int main()
 /* freopen("input.txt","r",stdin);
     freopen("output.txt","w",stdout);
 */
-ll  test;
-cin>>test;
+    ll  test;
+    cin>>test;
+    tst(test)
+    {
+        ll  n;
+        sl(n);
+        for(ll i=1;i<n;i++)
+        {
+            ll a,b,c;
+            sl3(a,b,c);
+            graph[a].pb(mkpr(b,c));
+            graph[b].pb(mkpr(a,c));
+        }
 
-tst(test){
+        bfs(0);
+        
+        ll z,mx=0;
+        for(ll i=0;i<n;i++)
+        {
+            if(dis[i]>=mx)
+            {
+                mx=dis[i];
+                z=i;
+            }
+            dis[i]=0;
+            visited[i]=false;
+        }
 
+        bfs(z);
+        
+        mx=0;
+        for(ll i=0;i<n;i++)
+        {
+            if(dis[i]>=mx)
+            {
+                mx=dis[i];
+            }
+            dis[i]=0;
+            visited[i]=false;
+            graph[i].clear();
+        }
 
-ll  n;
-
-sl(n);
-
-for(ll i=1;i<n;i++){
-
-
-ll a,b,c;
-
-sl3(a,b,c);
-
-
-graph[a].pb(mkpr(b,c));
-graph[b].pb(mkpr(a,c));
-}
-
-//bug1
-bfs(0);
-
-ll z,mx=0;
-for(ll i=0;i<n;i++){
-
-
-if(dis[i]>=mx){
-
-    mx=dis[i];
-
-    z=i;
-}
-
-dis[i]=0;
-visited[i]=false;
-}
-
-
-bfs(z);
-mx=0;
-
-for(ll i=0;i<n;i++){
-
-
-
-if(dis[i]>=mx){
-
-    mx=dis[i];
-
-  
-}
-
-dis[i]=0;
-
-visited[i]=false;
-graph[i].clear();
-}
-
-
-
-printf("Case %d: %lld\n",cs,mx);
-
-
-
-
-}
-
-
+        printf("Case %d: %lld\n",cs,mx);
+    }
 }
