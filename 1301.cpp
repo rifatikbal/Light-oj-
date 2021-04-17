@@ -62,82 +62,49 @@ int  Reset(int x,int pos ){ return x= x &~(1<<pos);}
 #define zero puts("0");
 #define limit 200006
 #define md 1000000007
- 
- 
- 
- 
 typedef pair<int,int> iPair;
  
 int main()
 {
- 
-               
-      /* freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
- 
-                int test;
-                cin>>test;
-                tst(test)
-                {
-                     int n;
- 
-                     si(n);
-                     vector<iPair>v;
- 
- 
-                     fr(i,0,n-1)
-                     {
-                        int a,b;
-                        si2(a,b);
- 
-                        v.pb(mkpr(a,b));
-                     }
- 
- 
-                     srt(v);
- 
-                     priority_queue<int,vector<int>,greater<int> >pq;
-                     pq.push(v[0].ss+1);
-                     int ans=1;
-                     fr(i,1,n-1)
-                     {
- 
-                        if(v[i].ff<pq.top())
-                        {
-                             ans++;
-                        }
-                        else
-                        {
- 
-                        pq.pop();
- 
- 
-                        }
-                        pq.push(v[i].ss+1);
- 
- 
- 
- 
-                     }
- 
-                     printf("Case %d: %d\n",cs,ans);
-                 
-           
-           
-           
-           
-                   
-                }
-       
- 
- 
- 
- 
- 
-   
- 
- 
- 
+    /* freopen("input.txt","r",stdin);
+     freopen("output.txt","w",stdout);*/
+    int test;
+    cin>>test;
+    tst(test)
+    {
+         int n;
+         si(n);
+         vector<iPair>v;
+         
+         fr(i,0,n-1)
+         {
+            int a,b;
+            si2(a,b);
+
+            v.pb(mkpr(a,b));
+         }
+         
+         srt(v);
+         
+         priority_queue<int,vector<int>,greater<int> >pq;
+         pq.push(v[0].ss+1);
+         
+         int ans=1;
+         fr(i,1,n-1)
+         {
+            if(v[i].ff<pq.top())
+            {
+                 ans++;
+            }
+            else
+            {
+              pq.pop();
+            }
+            pq.push(v[i].ss+1);
+         }
+
+         printf("Case %d: %d\n",cs,ans);  
+    }
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
