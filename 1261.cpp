@@ -67,121 +67,78 @@ int  Reset(int x,int pos ){ return x= x &~(1<<pos);}
 #define limit 200006
 #define md 1000000007
 
-
-
-
 typedef pair<ll,ll> iPair;
 
-
 int main()
-{
- 
-               /*
+{              /*
        freopen("input.txt","r",stdin);
        freopen("output.txt","w",stdout);*/
+       ll test;
+       cin>>test;
+       tst(test)
+       {
+           int n,m,k;
+           bool check[32];
+           memset(check,false,sizeof check);
 
-       	         ll test;
-       	         cin>>test;
-       	         tst(test)
-       	         {
+           si3(n,m,k);
+           VI v[31];
+           
+           fr(i,1,n)
+           {
+              fr(j,1,k)
+              {
+                  string C;
+                  cin>>C;
+                  int x=0;
+                  for(int l=1;l<C.size();l++)
+                  {
+                    x*=10;
+                    x+=C[l]-'0';
+                  }
+                  if(C[0]=='+')v[i].pb(x);
+                  else v[i].pb(-x);
+              }
+           }
+           int mm;
+           si(mm);
+           fr(i,1,mm)
+           {
+             int a;
+             si(a);
+             check[a]=true;
+           }
 
-	               int n,m,k;
+           bool no=false;
 
-	               bool check[32];
-	               memset(check,false,sizeof check);
-
-	               si3(n,m,k);
-
-	               VI v[31];
-
-	               fr(i,1,n)
-	               {
-
-	               	fr(j,1,k)
-	               	{
-
-		               		string C;
-		               		cin>>C;
-	               			int x=0;
-
-	               			for(int l=1;l<C.size();l++)
-	               			{
-	               				x*=10;
-	               				x+=C[l]-'0';
-	               			}
-
-		               		if(C[0]=='+')v[i].pb(x);
-		               		else v[i].pb(-x);
-
-	               	}
-
-	               	
-	               }
-
-
-
-	               int mm;
-	               si(mm);
-
-
-	               	fr(i,1,mm)
-	               	{
-
-	                 int a;
-
-	                 si(a);
-	                 //cout<<a<<endl;
-	                
-	                 check[a]=true;
-	               	}
-
-	               	bool no=false;
-
-	               	fr(i,1,n)
-	               	{
-
-	                    bool ys=false;
-	               		fr(j,0,k-1)
-	               		{
-	               			//cout<<v[i][j]<<" ";
-
-		                 if(v[i][j]<0)
-	                     { 
-	                    // bug  
-	                     	
-
-	                     	if(!check[abs(v[i][j])]){//cout<<v[i][j]<<endl;
-	                     	  ys=true;}
-	                     }
-	                     else
-	                     {
-	                       if(check[v[i][j]])ys=true;
-
-	                     }
-
-	               		}
-	               		//nl
-
-	               		if(!ys)no=true;
-	               	}
-
-               	   printf("Case %d: ",cs);
-
-	               	if(no)
-	               	{
-
-	               		pno
-	               	}
-	               	else
-	               	{
-
-	               		pys
-	               	}
-
-               }
-
- 
-
+           fr(i,1,n)
+           {
+              bool ys=false;
+              fr(j,0,k-1)
+              {
+                if(v[i][j]<0)
+                 { 
+                  if(!check[abs(v[i][j])]){//cout<<v[i][j]<<endl;
+                    ys=true;}
+                 }
+                 else
+                 {
+                   if(check[v[i][j]])ys=true;
+                 }
+              }
+              if(!ys)no=true;
+            }
+            
+            printf("Case %d: ",cs);
+            if(no)
+            {
+              pno
+            }
+            else
+            {
+              pys
+            }
+      }
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
