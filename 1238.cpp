@@ -56,71 +56,43 @@ using namespace std;
 #define zero puts("0");
 #define limit 200006
  
- typedef pair<ll,ll> iPair;
- 
+typedef pair<ll,ll> iPair;
+
 vector<iPair>graph[406];
 ll pos[22][22];
- 
 priority_queue< iPair, vector<iPair>,greater<iPair> >pq;
- 
 ll dis[402];
- 
-void  diakstra(ll n){
- 
+
+void  diakstra(ll n)
+{
     dis[n]=0;
- 
     pq.push(mkpr(0,n));
- 
- 
-    while(!pq.empty()){
- 
-ll u=pq.top().ss;
-pq.pop();
- 
-for(ll i=0;i<graph[u].size();i++){
-    ll v=graph[u][i].ff;
-    ll cost=graph[u][i].ss;
- 
-    if(dis[v]>dis[u]+cost){
- 
- 
- 
-        dis[v]=dis[u]+cost;
- 
- 
-        pq.push(mkpr(dis[v],v));
+    while(!pq.empty())
+    {
+        ll u=pq.top().ss;
+        pq.pop();
+        for(ll i=0;i<graph[u].size();i++)
+        {
+            ll v=graph[u][i].ff;
+            ll cost=graph[u][i].ss;
+
+            if(dis[v]>dis[u]+cost)
+            {
+                dis[v]=dis[u]+cost;
+                pq.push(mkpr(dis[v],v));
+            }
+        }
     }
- 
- 
- 
- 
 }
- 
- 
- 
-    }
- 
- 
-}
- 
- 
- 
+
 int main()
 {
-       ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1};
-    
- 
-       ll c=1;
- 
+      ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1};
+      ll c=1;
       for(ll i=0;i<20;i++)
       {
-       
-       
-       
           for(ll j=0;j<20;j++)
           {
-       
-       
               pos[i][j]=c;
                 c++;
           }
@@ -128,95 +100,60 @@ int main()
 /*
      freopen("input.txt","r",stdin);
      freopen("output.txt","w",stdout);*/
- 
- 
-      ll test;
- 
-      cin>>test;
- 
-      tst(test){
-
-            for(ll i=0;i<=402;i++)
-            {
-             
-                dis[i]=INFP;
-            }
-       
-             ll n,m;
-       
-             sl2(n,m);
-       
-             char A[22][22];
-            for(ll i=0;i<n;i++)
-            {
-             
-            scanf("%s",&A[i]);
-             
-            }
-     
-          ll hm;
-   
-          for(ll i=0;i<n;i++)
-          {
-           
-                for(ll j=0;j<m;j++)
-                {
-                 
-                    if(A[i][j]=='h'){
-                     
-                    hm=pos[i][j];
-                     
-                    }
-   
-                    ll u=pos[i][j];
-                    for(ll k=0;k<4;k++){
-                     
-                     
-                    ll x=dx[k]+i;
-                    ll y=dy[k]+j;
-                     
-                     
-                    if(x>n||y>m||x<0||y<0||A[x][y]=='#'||A[x][y]=='m')continue;
-                     
-                    ll v=pos[x][y];
-                     
-                    graph[u].pb(mkpr(v,1));
-                   
-                    }
-   
-               }
-   
-         }
- 
-
-           
-          diakstra(hm);
-          ll  mx=0;
- 
-          for(ll i=0;i<n;i++){
-           
-           
+    ll test;
+    cin>>test;
+    tst(test)
+    {
+        for(ll i=0;i<=402;i++)
+        {
+           dis[i]=INFP;
+        }
+        ll n,m;
+        sl2(n,m);
+        char A[22][22];
+        for(ll i=0;i<n;i++)
+        {
+          scanf("%s",&A[i]);
+        }
+        ll hm;
+        for(ll i=0;i<n;i++)
+        {
               for(ll j=0;j<m;j++)
               {
-           
-           
-                  if(A[i][j]=='a'||A[i][j]=='b'||A[i][j]=='c')
+                  if(A[i][j]=='h')
                   {
-                   
-                   
-                      mx=max(mx,dis[pos[i][j]]);
+                    hm=pos[i][j];
                   }
-           
-              }
-          }
- 
-           
-          for(ll i=0;i<=402;i++)graph[i].clear();
-           
-          printf("Case %d: %lld\n",cs,mx);
- 
- 
-      }
+                  
+                  ll u=pos[i][j];
+                  for(ll k=0;k<4;k++)
+                  {
+                    ll x=dx[k]+i;
+                    ll y=dy[k]+j; 
+                    if(x>n||y>m||x<0||y<0||A[x][y]=='#'||A[x][y]=='m')continue;
+
+                    ll v=pos[x][y];
+                    graph[u].pb(mkpr(v,1));
+                  }
+             }
+       }
+        diakstra(hm);
+       
+        ll  mx=0;
+        for(ll i=0;i<n;i++)
+        {
+            for(ll j=0;j<m;j++)
+            {
+                if(A[i][j]=='a'||A[i][j]=='b'||A[i][j]=='c')
+                {
+                    mx=max(mx,dis[pos[i][j]]);
+                }
+            }
+        }
+        for(ll i=0;i<=402;i++)graph[i].clear();
+         
+        printf("Case %d: %lld\n",cs,mx);
+    }
  
 /* ll dx[] = {1,-1,0,0} , dy[] = {0,0,1,-1}; */ // 4 Direction
 /* ll dx[] = {1,-1,0,0,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1,1,-1}; */ // 8 Direction
@@ -224,4 +161,3 @@ int main()
 /* ll dx[] = {2,-2,1,1,-1,-1} , dy[] = {0,0,1,-1,1,-1}; */ // Hexagonal Direction
  
 }
- 
