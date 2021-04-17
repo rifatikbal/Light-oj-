@@ -66,163 +66,75 @@ int  Reset(int x,int pos ){ return x= x &~(1<<pos);}
 #define zero puts("0");
 #define limit 200006
 #define md 1000000007
- 
- 
- 
 typedef pair<ll,ll> iPair;
- 
- 
- 
+
 int n;
- 
 ll A[19];
- 
 Vll v1,v2;
  
 void solve(int pos,ll s)
 {  
- 
- 
-    if(pos>(n/2))
-    {    
-      //if(s==0)return ;
- 
+     if(pos>(n/2))
+     {    
         v1.pb(s);
-       
- 
- 
-      return ;
-    }
- 
- 
-       
-       
+        return ;
+     }
      solve(pos+1,A[pos]+s) ;  
      solve(pos+1,2*A[pos]+s) ;  
      solve(pos+1,s) ;  
- 
- 
- 
-   }
-   
- 
- 
+}
+
 void solve1(int pos,ll s)
 {
-     
-    if(pos>n)
-    {    
-      if(s==0)return ;
- 
+     if(pos>n)
+     {    
+        if(s==0)return ;
         v2.pb(s);
-       
- 
- 
-  return ;
-    }
- 
- 
-       
-       
+        return ;
+     }   
      solve1(pos+1,A[pos]+s) ;  
      solve1(pos+1,2*A[pos]+s) ;  
      solve1(pos+1,s) ;  
- 
- 
- 
-   }
- 
- 
- 
- 
+}
+
 int main()
-{
- 
-               
-    /*   freopen("input.txt","r",stdin);
-       freopen("output.txt","w",stdout);*/
- 
-                int test;
-                cin>>test;
-                tst(test)
-                {
-                      v1.clear();
-                      v2.clear();
-                     
-                      ll w;
- 
-                      si(n);
-                      sl(w);
- 
-                      for(int i=1;i<=n;i++)
-                      {
- 
-                         sl(A[i]);
- 
-                      }
- 
- 
- 
- 
-                    solve(1,0);
- 
-                    solve1((n/2)+1,0);
- 
-                    srt(v2);
- 
-         
- 
- 
-                    bool ys=false;
-                    for(int i=0;i<v1.size();i++)
-                    {
-                     
- 
-                    if(v1[i]==w)ys=true;
- 
- 
- 
-                    int ind=lower_bound(all(v2),w-v1[i])-v2.begin();
- 
-                     
-                      if(v2[ind]==w-v1[i])ys=true;
- 
-                    }
-                   
- 
-                   
- 
-                     for(int i=0;i<v2.size();i++)
-                     {
- 
- 
-                      if(v2[i]==w)ys=true;
-                     }
- 
-               
- 
-                   
- 
-                      printf("Case %d: ",cs);
- 
-                      if(ys||w==0)pys
-                      else pno
- 
-           
-           
-           
-                   
-                }
-       
- 
- 
- 
- 
- 
-   
- 
- 
- 
+{              
+  /*   freopen("input.txt","r",stdin);
+     freopen("output.txt","w",stdout);*/
+    int test;
+    cin>>test;
+    tst(test)
+    {
+         v1.clear();
+         v2.clear();
+         ll w;
+         si(n);
+         sl(w);
+
+         for(int i=1;i<=n;i++)
+         {
+             sl(A[i]);
+         }
+         solve(1,0);
+         solve1((n/2)+1,0);
+         srt(v2);
+         bool ys=false;
+         for(int i=0;i<v1.size();i++)
+         {
+            if(v1[i]==w)ys=true;
+            int ind=lower_bound(all(v2),w-v1[i])-v2.begin();
+            if(v2[ind]==w-v1[i])ys=true;
+         }
+         for(int i=0;i<v2.size();i++)
+         {
+            if(v2[i]==w)ys=true;
+         }
+
+          printf("Case %d: ",cs);
+          if(ys||w==0)pys
+          else pno  
+    }
+
         /**
        *    @author     : Ikbal Hossain
        *    @University  : RUET CSE 15
