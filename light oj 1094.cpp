@@ -56,7 +56,6 @@ using namespace std;
 #define zero puts("0");
 #define limit 30000
 
-
 typedef pair<int,int > iPair;
 
 ll dis[limit+3];
