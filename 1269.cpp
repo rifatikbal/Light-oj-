@@ -55,155 +55,99 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 33*50006
- 
- 
+
 typedef pair<ll,ll> iPair;
 int node;
 int  tree[limit][3];
-void insert(int mask){
- 
-int  pos=1;
- 
- 
-for(int i=31;i>=0;i--){
- 
-bool p=(bool)(mask&(1<<i));
- 
-if(tree[pos][p]!=-1){
- 
- 
-    pos=tree[pos][p];
+void insert(int mask)
+{
+    int  pos=1;
+    for(int i=31;i>=0;i--)
+    {
+        bool p=(bool)(mask&(1<<i));
+        if(tree[pos][p]!=-1)
+        {
+            pos=tree[pos][p];
+        }
+        else
+        {
+            tree[pos][p]=node;
+            pos=node;
+            node++;
+        }
+    }
 }
  
- 
-else{
- 
- 
-    tree[pos][p]=node;
-pos=node;
-    node++;
+int  checkmx(int mask)
+{
+    int  pos=1;
+    int  ans=0;
+    for(int i=31;i>=0;i--)
+    {
+        bool p=!((bool)(mask&(1<<i)));
+        if(tree[pos][p]!=-1)
+        {
+            pos=tree[pos][p];
+            ans=(ans<<1);
+            ans++;
+        }
+        else
+        {
+            pos=tree[pos][!p];
+            ans=(ans<<1);
+        }
+    }
+    return ans;
 }
- 
-}
- 
-}
- 
-int  checkmx(int mask){
- 
- 
- 
-//cout<<mask<<endl;
-int  pos=1;
-int  ans=0;
- 
-for(int i=31;i>=0;i--){
- 
-bool p=!((bool)(mask&(1<<i)));
- 
-//cout<<p<<" "<<tree[pos][p]<<" ";
- 
-if(tree[pos][p]!=-1){
- 
- 
-    pos=tree[pos][p];
- 
-ans=(ans<<1);
-ans++;
- 
- 
-}
-else{
- 
- 
-    pos=tree[pos][!p];
- 
-    ans=(ans<<1);
-    //node++;
-}
- 
-}
-return ans;
-}
- 
- 
-int   checkmn(int mask){
-int  pos=1;
-int ans=0;
- 
-for(int i=31;i>=0;i--){
- 
-bool p=(bool)(mask&(1<<i));
- 
- 
- 
-if(tree[pos][p]!=-1){
- 
- 
-    pos=tree[pos][p];
- 
-ans=(ans<<1);
- 
-}
-else{
- 
- 
-    pos=tree[pos][!p];
- 
-    ans=(ans<<1);
- 
-//ans=(ans<<1);
-ans++;  //node++;
-}
- 
-}
-return ans;
+
+int   checkmn(int mask)
+{
+    int  pos=1;
+    int ans=0;
+    for(int i=31;i>=0;i--)
+    {
+        bool p=(bool)(mask&(1<<i));
+     
+        if(tree[pos][p]!=-1)
+        {
+            pos=tree[pos][p];
+            ans=(ans<<1);
+        }
+        else
+        {
+            pos=tree[pos][!p];
+            ans=(ans<<1);
+            ans++; 
+        }
+    }
+    return ans;
 }
  
 int main()
 {
  //freopen("input.txt","r",stdin);
  //freopen("output.txt","w",stdout);
- 
- 
     int test;
- 
     cin>>test;
- 
-    tst(test){
- 
+    tst(test)
+    {
         node=2;
- 
         memset(tree,-1,sizeof tree);
-int n;
- 
-si(n);
-insert(0);
- 
-int  s=0,mn=(1LL<<31-1),mx=0;
-for(int i=1;i<=n;i++){
-ll a;
-si(a);
- 
-s^=a;
- 
-mn=min(mn,checkmn(s));
-mx=max(mx,checkmx(s));
- 
-//bug
-//cout<<mx<<endl;
- 
- 
-insert(s);
-}
- 
-printf("Case %d: %d %d\n",cs,mx,mn);
- 
-//cout<<test<<endl;
- 
+        int n;
+        si(n);
+        insert(0);
+     
+        int  s=0,mn=(1LL<<31-1),mx=0;
+        for(int i=1;i<=n;i++)
+        {
+            ll a;
+            si(a);
+            s^=a;
+            mn=min(mn,checkmn(s));
+            mx=max(mx,checkmx(s));
+            insert(s);
+        }
+        printf("Case %d: %d %d\n",cs,mx,mn);
     }
- 
-//Case 1: 14 2
- 
- 
 }
  
