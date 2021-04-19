@@ -55,143 +55,82 @@ using namespace std;
 #define  pmn puts("-1");
 #define zero puts("0");
 #define limit 20000
- 
- 
+
 typedef pair<ll,ll> iPair;
  
 vector<ll>graph[limit+2];
- 
-ll x=0,y=0;
-ll rac[limit+2];
+ll x=0,y=0,rac[limit+2];
 bool visited[limit+2];
- 
- 
-void  bfs(ll node){
- 
- 
-queue<ll>q;
-q.push(node);
- 
- 
-rac[node]=-1;
- 
-while(!q.empty()){
- 
- 
-ll u=q.front();
-//cout<<u<<" ";
-if(rac[u]==-1){
-//    cout<<"a"<<u<<" ";
-    x++;}
-else{
-      //cout<<"b"<<u<<" ";
- 
-    y++;
-}
- 
-visited[u]=true;
-q.pop();
- 
-for(ll i=0;i<graph[u].size();i++){
- 
-ll v=graph[u][i];
- 
- 
-if(!visited[v]){
-    visited[v]=true;
-if(rac[u]==-1){
- 
-    rac[v]= 1;
-}
-else{
-rac[v]=-1;    
-}
- 
-    q.push(v);
-}
- 
-}
- 
- 
-}
- 
- 
- 
+
+void  bfs(ll node)
+{
+    queue<ll>q;
+    q.push(node);
+    rac[node]=-1;
+    while(!q.empty())
+    { 
+        ll u=q.front();
+        if(rac[u]==-1)
+        {
+            x++;
+        }
+        else
+        {
+            y++;
+        }
+        visited[u]=true;
+        q.pop();
+     
+        for(ll i=0;i<graph[u].size();i++)
+        {
+             ll v=graph[u][i];
+            if(!visited[v])
+            {
+                visited[v]=true;
+                if(rac[u]==-1)rac[v]= 1;
+                else rac[v]=-1; 
+                q.push(v);
+            }
+        }
+    }
 }
  
 int main()
 {
  /*freopen("input.txt","r",stdin);
-    freopen("output.txt","w",stdout);
-*/
-ll test;
- 
-cin>>test;
- 
-tst(test){
- 
-ll n;
- 
-sl(n);
-for1(20001){
- 
- 
-    visited[i]=true;
-}
- 
-for(ll i=0;i<n;i++){
-ll a,b;
-sl2(a,b);
-//xz=a;
-visited[a]=false;
-visited[b]=false;
-graph[a].pb(b);
- 
-graph[b].pb(a);
- 
-}
- 
- 
- 
-for(ll i=1;i<=20000;i++){
- 
- 
-    if(visited[i])continue;
- 
-    //cout<<i<<"\n";
-}
- 
-ll ans=0;
-x=0;
-y=0;
-for(ll i=1;i<=20000;i++){
- 
- 
-if(visited[i])continue;
- 
-x=0;
-y=0;
-bfs(i);
- 
- 
-//nl
-//cout<<i<<" "<<x<<" aa "<<y<<endl;
- 
-ans+=max(x,y);
- 
- 
-}
- 
- 
-printf("Case %d: %lld\n",cs,ans);
- 
- 
-for1(20001){
- 
-    graph[i].clear();
-}
-}
- 
- 
+    freopen("output.txt","w",stdout);*/
+    ll test;
+    cin>>test;
+    tst(test)
+    {
+
+        ll n;
+        sl(n);
+        for1(20001) visited[i]=true;
+        for(ll i=0;i<n;i++)
+        {
+            ll a,b;
+            sl2(a,b);
+            visited[a]=false;
+            visited[b]=false;
+            graph[a].pb(b);
+            graph[b].pb(a);
+         
+        }
+
+        ll ans=0;
+        x=0;
+        y=0;
+        for(ll i=1;i<=20000;i++)
+        {
+            if(visited[i])continue; 
+            x=0;
+            y=0;
+            bfs(i);
+            ans+=max(x,y);
+        }
+        printf("Case %d: %lld\n",cs,ans);
+        for1(20001)graph[i].clear();
+    }
 }
  
